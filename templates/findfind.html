@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<link type="text/css" rel="stylesheet" href="{{url_for('static', filename='example.css')}}">
+</head>
+
+<body>
+<div class="foo-page">
+  <div class="form">
+    <form class="foo-form" action="/find" method="POST">
+      <input name="player_name" type="text" placeholder="Player Name"/>
+      <button class="subbtn">Find it</button>
+      <p class="message">Want to save someone instead? <a href="/save">Save a player</a></p>
+    </form>
+  </div>
+</div>
+</body>
+
+</html>
