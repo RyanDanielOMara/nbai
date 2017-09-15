@@ -62,20 +62,19 @@ def find_post():
     ## Get the name from the text box on the webpage
     name = request.form['player_name']
 
-    ## Create a Player object
+    ## Create a query
     query = {
         PlayersTable.f.name : name
     }
 
     ## Search for this Player
-    result = connection.PlayersTable.find_one(query)
+    player = connection.PlayersTable.find_one(query)
 
     ## If this player does not exist, tell the user
-    if result is None:
-        return "{} doesn't exist".format(request.form['player_name'])
+    if player is None:
+        return "{} doesn't exist".format(name)
 
     ## Otherwise, print the player's info
-    player = result[0]
     return "Name : {}<br>Age : {}".format(player.name, player.age)
 
 
