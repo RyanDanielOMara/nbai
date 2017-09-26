@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<script src="{{url_for('static', filename='example.css')}}"></script>
+<link type="text/css" rel="stylesheet" href="{{url_for('static', filename='example.css')}}">
+</head>
+
+<body>
+<div>
+  <table>
+    <tr>
+      {% for header in header_list %}
+      <th>{{ header }}</th>
+      {% endfor %}
+    </tr>
+    {% for player_name in player_dict %}
+      <tr>
+	  <td>{{ player_name }}</td>
+	    {% for datum in player_dict[player_name] %}
+	      <td>{{ datum }}</td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+</body>
+
+</html>
