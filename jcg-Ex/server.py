@@ -22,7 +22,7 @@ def all_unnamed_routes(path):
     return flask.render_template(
             'index.html',
             
-            WebsiteTable=nbai
+            website_table=nbai
     )
 
 
