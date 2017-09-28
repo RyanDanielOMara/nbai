@@ -82,8 +82,8 @@
               <table id="table" class="container text-center">
                 
                 <tr>
-                {% for i in range(len(header_list)) %}
-                  <th onclick="sortTable({{i}})">{{header_list[i]}}</th>
+                {% for headers in header_list %}
+                  <th onclick="sortTable({{loop.index0}})">{{headers}}</th>
                 {% endfor %}  
                 </tr>
 
