@@ -11,16 +11,16 @@
     <title>NBAI</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Cabin:700' rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this template -->
-    <link href="css/grayscale.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/table.css">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/grayscale.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/table.css')}}">
 
   </head>
 
@@ -180,12 +180,12 @@
     </footer>
 
         <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/popper/popper.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='vendor/popper/popper.min.js')}}"></script>
+    <script src="{{url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 
     <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{{url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
     <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
     
@@ -194,8 +194,8 @@
     -->
 
     <!-- Custom scripts for this template -->
-    <script src="js/grayscale.js"></script>
-    <script src="js/table.js"></script>
+	<script src="{{url_for('static', filename='js/grayscale.js')}}"></script>
+	<script src="{{url_for('static', filename='js/table.js')}}"></script>
 
   </body>
 
