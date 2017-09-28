@@ -15,3 +15,10 @@ td {
 	border: 3px #CCc solid; 
 	width: 100px;
 }
+
+th {
+	text-align: center;
+	padding: 4px; 
+	border: 3px #CCc solid; 
+	width: 100px;
+}

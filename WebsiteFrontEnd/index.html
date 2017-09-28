@@ -80,6 +80,13 @@
                 <button>Next Day</button>
               </div>
               <table id="table" class="container text-center">
+                
+                <tr>
+                {% for i in range(len(header_list)) %}
+                  <th onclick="sortTable({{i}})">{{header_list[i]}}</th>
+                {% endfor %}  
+                </tr>
+
                 {% for player_list in website_table%}
                 <tr>
                   {% for datum in player_list%}
@@ -89,12 +96,12 @@
                 {% endfor %}
                 
                 <!-- <tr>
-                  <td>First Name</td>
-                  <td>Last Name</td>
-                  <td>Position</td>
-                  <td>Team</td>
-                  <td>ESPN Score</td>
-                  <td>Our Predicted Score</td>
+                  <th onclick="sortTable(0)">First Name</th>
+                  <th onclick="sortTable(1)">Last Name</th>
+                  <th onclick="sortTable(2)">Position</th>
+                  <th onclick="sortTable(3)">Team</th>
+                  <th onclick="sortTable(4)">ESPN Score</th>
+                  <th onclick="sortTable(5)">Our Predictions</th>
                 </tr>
                 <tr>
                   <td>Steph</td>
@@ -102,7 +109,7 @@
                   <td>PG</td>
                   <td>GSW</td>
                   <td>35</td>
-                  <td>40</td>
+                  <td>UnderValued</td>
                 </tr>
                 <tr>
                   <td>Lebron</td>
@@ -110,15 +117,15 @@
                   <td>SF</td>
                   <td>CLE</td>
                   <td>33</td>
-                  <td>37</td>
+                  <td>UnderValued</td>
                 </tr>
                 <tr>
                   <td>Carmelo</td>
                   <td>Anthony</td>
                   <td>SF</td>
-                  <td>NYK</td>
+                  <td>OKC</td>
                   <td>30</td>
-                  <td>25</td>
+                  <td>OverValued</td>
                 </tr>
                 <tr>
                   <td>Dwight</td>
@@ -126,7 +133,7 @@
                   <td>CEN</td>
                   <td>ATL</td>
                   <td>20</td>
-                  <td>15</td>
+                  <td>OverValued</td>
                 </tr>
                 <tr>
                   <td>Kristaps</td>
@@ -134,15 +141,15 @@
                   <td>PF</td>
                   <td>NYK</td>
                   <td>15</td>
-                  <td>23</td>
+                  <td>UnderValued</td>
                 </tr>
                 <tr>
                   <td>Chris</td>
                   <td>Paul</td>
                   <td>PG</td>
-                  <td>Hou</td>
+                  <td>HOU</td>
                   <td>18</td>
-                  <td>27</td>
+                  <td>UnderValued</td>
                 </tr>
                 <tr>
                   <td>Kevin</td>
@@ -150,7 +157,7 @@
                   <td>PF</td>
                   <td>CLE</td>
                   <td>20</td>
-                  <td>17</td>
+                  <td>OverValued</td>
                 </tr> -->
 
 

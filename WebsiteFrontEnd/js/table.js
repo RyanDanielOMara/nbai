@@ -31,5 +31,47 @@ $('#search').keyup(function() {
         }
         return !~text.indexOf(val);
     }).hide();
-    $('tr : first').show();
+    // $('tr : first').show();
 });
+
+function sortTable(n){
+	var table = document.getElementById("table");
+	var switching = true;
+	var switch_count = 0;
+	var dir = "asc";
+	while(switching){
+
+		switching = false;
+		var rows = table.getElementsByTagName("TR");
+
+		for (var current_row_index = 1; current_row_index < (rows.length - 1); current_row_index ++){
+			var shouldSwitch = false;
+			var current_row = rows[current_row_index].getElementsByTagName('td')[n];
+			var next_row = rows[current_row_index + 1].getElementsByTagName('td')[n];
+
+			if (dir == "asc"){
+				if (current_row.innerHTML.toLowerCase() > next_row.innerHTML.toLowerCase()){
+					shouldSwitch = true;
+					break;
+				}
+			}
+			else if (dir == "desc"){
+				if (current_row.innerHTML.toLowerCase() < next_row.innerHTML.toLowerCase()){
+					shouldSwitch = true;
+					break;
+				} 
+			}
+		}
+		if (shouldSwitch) {
+			rows[current_row_index].parentNode.insertBefore(rows[current_row_index + 1],rows[current_row_index]);
+			switching = true;
+			switch_count ++;
+		}
+		else{
+			if (switch_count == 0 && dir == "asc"){
+				dir = "desc";
+				switching = true;
+			}
+		}
+	}
+}
