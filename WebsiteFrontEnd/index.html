@@ -80,7 +80,15 @@
                 <button>Next Day</button>
               </div>
               <table id="table" class="container text-center">
+                {% for playerList in WebsiteTable%}
                 <tr>
+                  {% for datum in playerList%}
+                  <td>{{datum}}</td>
+                  {% endfor %}
+                </tr>
+                {% endfor %}
+                
+                <!-- <tr>
                   <td>First Name</td>
                   <td>Last Name</td>
                   <td>Position</td>
@@ -143,7 +151,7 @@
                   <td>CLE</td>
                   <td>20</td>
                   <td>17</td>
-                </tr>
+                </tr> -->
 
 
               </table>
