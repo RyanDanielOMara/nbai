@@ -2,7 +2,7 @@
 import flask
 app = flask.Flask(__name__)
 
-some_list = ['First Name', 'Last Name', 'Team', 'Position', 'ESPN Score', 'Our Predictions']
+some_list = ['Name', 'Team', 'Position', 'ESPN Score', 'Our Predictions']
 
 some_dict = {
     'LeBron Jamz' : ['CLE', 23, 61],
@@ -10,9 +10,9 @@ some_dict = {
 }
 
 nbai = [
-['LeBron', 'James', 'CLE', 'SF', '30', 'UnderValued'],
-['Isaiah', 'Thomas', 'CLE', 'PG', '25', 'OverValued'],
-['Steph', 'Curry', 'GSW', 'PG', '25', 'UnderValued']
+['LeBron James', 'CLE', 'SF', '30', 'UnderValued'],
+['Isaiah Thomas', 'CLE', 'PG', '25', 'OverValued'],
+['Steph Curry', 'GSW', 'PG', '25', 'UnderValued']
 ]
 
 @app.route('/', defaults={'path': ''})

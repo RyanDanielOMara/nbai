@@ -75,16 +75,15 @@ function sortTable(n){
 		}
 	}
 }
-function filterFuction(){
-	var i;
+function filterFunction(){
   	var input = document.getElementById("search");
   	var filter = input.value.toUpperCase();
   	var table = document.getElementById("table");
-  	var rows = table.getElementsByTagName("Tr");
-
-	for (i = 0; i < rows.length; i++) {
-   		cur_col_val = rows[i].getElementsByTagName("td")[0];
-    		if (cur_col_val) {
+  	var rows = table.getElementsByTagName("tr");
+	
+	for (var i = 0; i < rows.length; i++) {
+   		var cur_col_val = rows[i].getElementsByTagName("td")[0];
+  		if (cur_col_val) {
       			if (cur_col_val.innerHTML.toUpperCase().indexOf(filter) > -1) {
         			rows[i].style.display = "";
      			 }
