@@ -20,19 +20,19 @@
 //         return !~text.indexOf(val);
 // }
 
-var $rows = $('#table tr');
-$('#search').keyup(function() {
-    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-    
-    $rows.show().filter(function() {
-        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-        if (text.indexOf('first') === 1){
-        	return 0;
-        }
-        return !~text.indexOf(val);
-    }).hide();
-    // $('tr : first').show();
-});
+// var $rows = $('#table tr');
+// $('#search').keyup(function() {
+//     var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+//
+//     $rows.show().filter(function() {
+//         var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+//         if (text.indexOf('first') === 1){
+//         	return 0;
+//         }
+//         return !~text.indexOf(val);
+//     }).hide();
+//
+// });
 
 function sortTable(n){
 	var table = document.getElementById("table");
@@ -59,7 +59,7 @@ function sortTable(n){
 				if (current_row.innerHTML.toLowerCase() < next_row.innerHTML.toLowerCase()){
 					shouldSwitch = true;
 					break;
-				} 
+				}
 			}
 		}
 		if (shouldSwitch) {
@@ -74,4 +74,23 @@ function sortTable(n){
 			}
 		}
 	}
+}
+function filterFuction(){
+	var i;
+  	var input = document.getElementById("search");
+  	var filter = input.value.toUpperCase();
+  	var table = document.getElementById("table");
+  	var rows = table.getElementsByTagName("Tr");
+
+	for (i = 0; i < rows.length; i++) {
+   		cur_col_val = rows[i].getElementsByTagName("td")[0];
+    		if (cur_col_val) {
+      			if (cur_col_val.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        			rows[i].style.display = "";
+     			 }
+			else {
+        			rows[i].style.display = "none";
+      			}
+    		}
+  }
 }
