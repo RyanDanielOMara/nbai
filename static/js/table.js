@@ -75,21 +75,71 @@ function sortTable(n){
 		}
 	}
 }
-function filterFunction(){
-  	var input = document.getElementById("search");
-  	var filter = input.value.toUpperCase();
-  	var table = document.getElementById("table");
+
+function newFilterFunction(name_index, team_index, position_index ){
+	var search_filter = document.getElementById("search").value.toUpperCase().trim();
+	var team_filter = document.getElementById("team_dropdown").value.toUpperCase()
+	var position_filter = document.getElementById("position_dropdown").value.toUpperCase()
+	var table = document.getElementById("table");
   	var rows = table.getElementsByTagName("tr");
-	
-	for (var i = 0; i < rows.length; i++) {
-   		var cur_col_val = rows[i].getElementsByTagName("td")[0];
-  		if (cur_col_val) {
-      			if (cur_col_val.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        			rows[i].style.display = "";
-     			 }
-			else {
-        			rows[i].style.display = "none";
-      			}
-    		}
-  }
+
+  	for (var i = 0; i< (rows.length); i++){
+  		rows[i].style.display = "";
+  	} 
+  	for (var i = 1; i< (rows.length); i++){
+  		//alert(search_filter+team_filter+position_filter);
+  		var cur_row_name = rows[i].getElementsByTagName("td")[name_index];
+  		var cur_row_team = rows[i].getElementsByTagName("td")[team_index];
+  		var cur_row_pos = rows[i].getElementsByTagName("td")[position_index];
+  		if (cur_row_name){
+  			if (cur_row_name.innerHTML.toUpperCase().indexOf(search_filter) > -1){
+  				var name_bool = true;
+  			}
+  			else {
+  				var name_bool = false;
+  			}	
+  		}
+  		if (search_filter.length == 0){
+  			var name_all = true;
+  		}
+  		else{
+  			var name_all = false;
+  		}
+  		if (cur_row_team){
+  			if (cur_row_team.innerHTML.toUpperCase().indexOf(team_filter) > -1){
+  				var team_bool = true;
+  			}
+  			else {
+  				var team_bool = false;
+  			}
+  		}
+  		if (team_filter == "ALL"){
+  			var team_all = true;
+  		}
+  		else {
+  			var team_all = false;
+  		}
+  		if (cur_row_pos){
+  			if (cur_row_pos.innerHTML.toUpperCase().indexOf(position_filter) > -1){
+  				var pos_bool = true;
+  			}
+  			else {
+  				var pos_bool = false;
+  			}
+  		}
+  		if (position_filter == "ALL"){
+  			var pos_all = true;
+  		}
+  		else {
+  			var pos_all = false;
+  		}
+  		if ((name_bool||name_all)&&(team_bool||team_all)&&(pos_bool||pos_all)) {
+  			rows[i].style.display = "";
+  		}
+  		else{
+  			rows[i].style.display = "none";
+  		}
+
+
+  	}
 }
