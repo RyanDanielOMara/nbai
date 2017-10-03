@@ -74,9 +74,9 @@
           <div class="col-lg-8 mx-auto">
             <h2>Daily Player Fantasy Score Predictions</h2>
             <div id="table_container">
-              <input type="text" id="search" onkeyup="newFilterFunction({{name_index}}, {{team_index}}, {{position_index}})" placeholder="Type to search">
+              <input type="text" id="search" onkeyup="newFilterFunction({{name_index}}, {{team_index}}, {{position_index}}, {{value_index}})" placeholder="Type to search">
               <div class="container text-center">
-                <select onchange=  "newFilterFunction({{name_index}}, {{team_index}}, {{position_index}})" id="position_dropdown">
+                <select onchange=  "newFilterFunction({{name_index}}, {{team_index}}, {{position_index}}, {{value_index}})" id="position_dropdown">
                   <option value = "ALL">ALL</option>
                   <option value = "PG">PG</option>
                   <option value = "SG">SG</option>
@@ -86,10 +86,17 @@
                 </select>
               </div>
               <div class="container text-center">
-                <select onchange=  "newFilterFunction({{name_index}}, {{team_index}}, {{position_index}})" id="team_dropdown">
+                <select onchange=  "newFilterFunction({{name_index}}, {{team_index}}, {{position_index}}, {{value_index}})" id="team_dropdown">
                   <option value = "ALL">ALL</option>
                   <option value = "CLE">CLE</option>
                   <option value = "GSW">GSW</option>
+                </select>
+              </div>
+              <div class="container text-center">
+                <select onchange=  "newFilterFunction({{name_index}}, {{team_index}}, {{position_index}}, {{value_index}})" id="value_dropdown">
+                  <option value = "ALL">ALL</option>
+                  <option value = "OverValued">OverValued</option>
+                  <option value = "UnderValued">UnderValued</option>
                 </select>
               </div>
               <div class="container text-center">

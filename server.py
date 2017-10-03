@@ -11,6 +11,7 @@ some_dict = {
     'Kobe Bryant' : ['LAL', 8,  81]
 }
 
+value_column_index = 4;
 position_column_index = 2;
 team_column_index= 1;
 name_column_index =0;
@@ -30,7 +31,8 @@ def home_page(path):
         website_table=nbai,
         position_index=position_column_index,
         team_index=team_column_index,
-        name_index=name_column_index
+        name_index=name_column_index,
+        value_index=value_column_index
     	)
 
 if len(sys.argv) != 2:
