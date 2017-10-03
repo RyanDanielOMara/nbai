@@ -1,5 +1,7 @@
 #!env/bin/python
 import flask
+import sys
+
 app = flask.Flask(__name__)
 
 some_list = ['Name', 'Team', 'Position', 'ESPN Score', 'Our Predictions']
@@ -31,6 +33,20 @@ def home_page(path):
         name_index=name_column_index
     	)
 
+if len(sys.argv) != 2:
+    print("Please add a server port as a command line argument.")
+    exit()
+else:
+    try:
+        int(sys.argv[1])
+    except ValueError:
+	print("Command line argument invalid! \n Argument should be the listening port of the server. \n (Integer between 1 and 65535)")
+	exit()
+	
+    if  (sys.argv[1] > 1 and sys.argv[1] < 65535): 
+	print("Command line argument incorrect! \n Argument should be the listening port of the server. \n (Integer between 1 and 65535) ")
+        exit()
+
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=sys.argv[1])
