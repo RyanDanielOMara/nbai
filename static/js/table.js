@@ -96,67 +96,29 @@ function newFilterFunction(name_index, team_index, position_index, value_index )
   		
   		//name filter
   		if (cur_row_name){
-  			if (cur_row_name.innerHTML.toUpperCase().indexOf(search_filter) > -1){
-  				var name_bool = true;
-  			}
-  			else {
-  				var name_bool = false;
-  			}	
+  			var name_bool = (cur_row_name.innerHTML.toUpperCase().indexOf(search_filter) > -1);	
   		}
-  		if (search_filter.length == 0){
-  			var name_all = true;
-  		}
-  		else{
-  			var name_all = false;
-  		}
+  		var name_all = (search_filter.length == 0);
   		
   		//team filter
   		if (cur_row_team){
-  			if (cur_row_team.innerHTML.toUpperCase().indexOf(team_filter) > -1){
-  				var team_bool = true;
-  			}
-  			else {
-  				var team_bool = false;
-  			}
+  			var team_bool = (cur_row_team.innerHTML.toUpperCase().indexOf(team_filter) > -1);
   		}
-  		if (team_filter == "ALL"){
-  			var team_all = true;
-  		}
-  		else {
-  			var team_all = false;
-  		}
+  		var team_all = (team_filter == "ALL");
   		
   		//position filter
   		if (cur_row_pos){
-  			if (cur_row_pos.innerHTML.toUpperCase().indexOf(position_filter) > -1){
-  				var pos_bool = true;
-  			}
-  			else {
-  				var pos_bool = false;
-  			}
+  			var pos_bool = (cur_row_pos.innerHTML.toUpperCase().indexOf(position_filter) > -1);
   		}
-  		if (position_filter == "ALL"){
-  			var pos_all = true;
-  		}
-  		else {
-  			var pos_all = false;
-  		}
+  		var pos_all = (position_filter == "ALL");
+  		
 
   		//value filter
   		if (cur_row_val){
-  			if (cur_row_val.innerHTML.toUpperCase().indexOf(value_filter) > -1){
-  				var val_bool = true;
-  			}
-  			else {
-  				var val_bool =false;
-  			}
+  			var val_bool = (cur_row_val.innerHTML.toUpperCase().indexOf(value_filter) > -1);
   		}
-  		if (value_filter == "ALL"){
-  			var val_all = true;
-  		}
-  		else{
-  			var val_all = false;
-  		}
+  		var val_all = (value_filter == "ALL");
+  		
 
 
   		if ((name_bool||name_all)&&(team_bool||team_all)&&(pos_bool||pos_all)&&(val_bool||val_all)) {
