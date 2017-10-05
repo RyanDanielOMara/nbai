@@ -13,6 +13,14 @@ td {
 	width: 100px;
 	text-align: left;
 }
+
+/*th {
+	text-align: center;
+	padding: 4px;
+	border: 3px #CCc solid;
+	width: 100px;
+}*/
+
 tr {
 	border-top: 1px #CCC solid;
 }
@@ -49,12 +57,12 @@ tr {
 
 
 
-#prediction-table {
-	background-color: #f4f8fb
+#table {
+	background-color: white;
 }
 
-#prediction-table tr:nth-child(odd) {
-	background-color: white;
+#table tr:nth-child(1) {
+	background-color: #f4f8fb;
 }
 
 #table-filter {
@@ -89,11 +97,13 @@ tr {
 	border: none;
 }
 
-#top-row td {
+#top-row th {
 	font-weight: bolder;
-	font-size: 20px;
+	font-size: 16px;
 	padding-top: 0;
 	line-height: 20px;
+	color: #36404a;
+	cursor: pointer;
 }
 
 td.overvalued {

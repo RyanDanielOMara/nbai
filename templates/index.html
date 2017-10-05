@@ -37,7 +37,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#predictions-setting">Predictions</a>
+              <a class="nav-link js-scroll-trigger" href="#predictions-section">Predictions</a>
             </li>
 
           </ul>
@@ -58,7 +58,7 @@
               <p class="text-center">Predictions based on the information from
               <a href="http://stats.nba.com/">Stats.NBA.com</a>
               </p>
-              <a href="#Predictions" class="btn btn-circle js-scroll-trigger">
+              <a href="#predictions-section" class="btn btn-circle js-scroll-trigger">
                 <i class="fa fa-angle-double-down animated"></i>
               </a>
             </div>
@@ -112,10 +112,10 @@
                     <h2>Search Filter</h2>
                     <p>Search on players based on name, team, position.</p>
                     <h3>Name:</h3>
-                    <input type="text" id="search" style="width:200px;" placeholder="Player Name">
+                    <input type="text" id="search" style="width:200px;" placeholder="Player Name" onkeyup="newFilterFunction({{name_index}}, {{team_index}}, {{position_index}}, {{value_index}})">
                     <h3>Position:</h3>
-                    <select name="position" id="position" style="width:200px;">
-                      <option value="any-Position" selected>Any</option>
+                    <select onchange = "newFilterFunction({{name_index}}, {{team_index}}, {{position_index}}, {{value_index}})" name="position" id="position_dropdown" style="width:200px;">
+                      <option value="ALL" selected>ALL</option>
                       <option value="PG">PG</option>
                       <option value="SG">SG</option>
                       <option value="SF">SF</option>
@@ -123,20 +123,45 @@
                       <option value="C">C</option>
                     </select>
                     <h3>Team:</h3>
-                    <select name="team" id="team" style="width:200px;">
-                      <option value="any-Team" selected>Any</option>
-                      <option value="CLE">CLE</option>
+                    <select onchange = "newFilterFunction({{name_index}}, {{team_index}}, {{position_index}}, {{value_index}})" name="team" id="team_dropdown" style="width:200px;">
+                      <option value="ALL" selected>ALL</option>
+                      {% for datum in team_list %}
+                      <option value={{datum}}>{{datum}}</option>
+                      {% endfor %}
+                      <!-- <option value="CLE">CLE</option>
+                      <option value="GSW">GSW</option> -->
+
                     </select>
                     <h3>Value:</h3>
-                    <select name="value" id="value" style="width:200px;">
-                      <option value="any-Value" selected>Any</option>
+                    <select onchange = "newFilterFunction({{name_index}}, {{team_index}}, {{position_index}}, {{value_index}})" name="value" id="value_dropdown" style="width:200px;">
+                      <option value="ALL" selected>ALL</option>
                       <option value="Undervalued">Undervalued</option>
                       <option value="Overvalued">Overvalued</option>
                     </select>
                   </div>
                   <div class="col-lg-9">
-                    <table id="prediction-table" class="container text-center">
+                    <table id="table" class="container text-center">
+
                       <tr id="top-row">
+                      {% for headers in header_list %}
+                        <th onclick="sortTable({{loop.index0}})">{{headers}}</th>
+                      {% endfor %}
+                      </tr>
+
+                      {% for player_list in website_table%}
+                      <tr>
+                        {% for datum in player_list%}
+                        {% if datum == 'Overvalued'%}
+                        <td class="overvalued">{{datum}}</td>
+                        {% elif datum == 'Undervalued'%}
+                        <td class="undervalued">{{datum}}</td>
+                        {% else %}
+                        <td>{{datum}}</td>
+                        {% endif %}
+                        {% endfor %}
+                      </tr>
+                      {% endfor %}
+                      <!-- <tr id="top-row">
                         <td>Name</td>
                         <td>Position</td>
                         <td>Team</td>
@@ -201,7 +226,7 @@
                         <td>SF</td>
                         <td>MIL</td>
                         <td class="undervalued">Undervalued</td>
-                      </tr>
+                      </tr> -->
 
 
                     </table>
