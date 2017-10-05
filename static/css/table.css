@@ -3,15 +3,105 @@
 }
 */
 input {
-	margin-bottom: 5px; 
-	padding: 2px 3px; 
-	width: 209px;
-}
-table {
-	margin: 20px;
+	margin-bottom: 5px;
+	padding: 2px 3px;
+	width: 200px;
+	height: 25px;
 }
 td {
-	padding: 4px; 
-	border: 3px #CCc solid; 
+	padding: 4px;
 	width: 100px;
+	text-align: left;
+}
+tr {
+	border-top: 1px #CCC solid;
+}
+
+/* Predictions Section*/
+#predictions-section {
+	background-color: #ebeff2;
+	padding: 100px;
+}
+
+#predictions-section h1, h2, h3{
+	color: #36404a;
+}
+
+.prediction-table-outer-container {
+	background-color: white;
+	padding: 25px;
+}
+
+.prediction-table-outer-container td{
+	color: #757e81;
+}
+
+
+.players-of-the-week {
+	margin-bottom: 75px;
+}
+
+#potw img {
+	width:100%;
+	max-width: 100px;
+}
+
+
+
+
+#prediction-table {
+	background-color: #f4f8fb
+}
+
+#prediction-table tr:nth-child(odd) {
+	background-color: white;
+}
+
+#table-filter {
+	background-color: #f4f8fb;
+	padding: 5px;
+}
+
+#table-filter h2 {
+	font-size: 26px;
+	margin: 0;
+}
+
+#table-filter h3 {
+	font-size: 20px;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+#table-filter p {
+	font-size: 14px;
+	color: #36404a;
+	margin: 0;
+	line-height: 14px;
+}
+#table-filter select {
+    margin-bottom: 5px;
+    background-color: #fff;
+		height: 25px;
+}
+
+#top-row {
+	border: none;
+}
+
+#top-row td {
+	font-weight: bolder;
+	font-size: 20px;
+	padding-top: 0;
+	line-height: 20px;
+}
+
+td.overvalued {
+	font-weight: bold;
+	color: #bf5b70;
+}
+
+td.undervalued {
+	font-weight: bold;
+	color: #5bbfaa;
 }

@@ -37,9 +37,9 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#Predictions">Predictions</a>
+              <a class="nav-link js-scroll-trigger" href="#predictions-setting">Predictions</a>
             </li>
-            
+
           </ul>
         </div>
       </div>
@@ -55,7 +55,7 @@
               <p class="intro-text">Your home for accurate NBA player Fantasy scores.
                 </p>
               <p class="text-center">We use our prediction algorithm to ouput a more accurate fantasy score than ESPN's</p>
-              <p class="text-center">Predictions based on the information from 
+              <p class="text-center">Predictions based on the information from
               <a href="http://stats.nba.com/">Stats.NBA.com</a>
               </p>
               <a href="#Predictions" class="btn btn-circle js-scroll-trigger">
@@ -68,87 +68,149 @@
     </header>
 
     <!-- About Section -->
-    <section id="Predictions" class="content-section text-center">
+    <section id="predictions-section" class="content-section text-center">
       <div class="container">
+        <div class="row potw">
+          <div class="col-lg-10 mx-auto">
+            <h1>Top Players This Week</h1>
+          </div>
+        </div>
+
+        <div class="row players-of-the-week">
+          <div class="col-lg-4 mx-auto" style="color:black;">
+            <img src="../static/img/chrispaul.png" alt="potw1">
+            <div style="background-color: #5bbfaa; width: 90%; text-align:center; margin: 10px  auto; ">
+              <h4 style="color:white; padding: 5px; margin-bottom:10px;">Chris Paul</h4>
+              <p style="color:white; margin-bottom:10px;">Averaging 30,000 PPG</p>
+              <p style="color:white; padding-bottom:10px">Undervalued by X</p>
+            </div>
+          </div>
+          <div class="col-lg-4 mx-auto" style="color:black;">
+            <img src="../static/img/kevinlove.png" alt="potw2">
+            <div style="background-color: #5bbfaa; width: 90%; text-align:center; margin: 10px  auto; ">
+              <h4 style="color:white; padding: 5px; margin-bottom:10px;">Kevin Love</h4>
+              <p style="color:white; margin-bottom:10px;">Playing center now so yeah.</p>
+              <p style="color:white; padding-bottom:10px">Undervalued by Y</p>
+            </div>
+          </div>
+          <div class="col-lg-4 mx-auto" style="color:black;">
+            <img src="../static/img/kristapsporzingis.png" alt="potw3">
+            <div style="background-color: #5bbfaa; width: 90%; text-align:center; margin: 10px auto; ">
+              <h4 style="color:white; padding: 5px; margin-bottom:10px;">Kristaps Porzingis</h4>
+              <p style="color:white; margin-bottom:10px;">PORZINGOD</p>
+              <p style="color:white; padding-bottom:10px">Undervalued by Z</p>
+            </div>
+          </div>
+        </div>
         <div class="row">
-          <div class="col-lg-8 mx-auto">
-            <h2>Daily Player Fantasy Score Predictions</h2>
-            <div id="table_container">
-              <input type="text" id="search" placeholder="Type to search">
-              <div class="container text-center">
-                <button>Previous Day</button>
-                <button>Next Day</button>
+          <div class="col-lg-10 mx-auto">
+            <h1>Daily Player Fantasy Score Predictions</h1>
+            <div class="prediction-table-outer-container">
+              <div id="prediction-table-inner-container">
+                <div class="row">
+                  <div id ="table-filter" class="col-lg-3">
+                    <h2>Search Filter</h2>
+                    <p>Search on players based on name, team, position.</p>
+                    <h3>Name:</h3>
+                    <input type="text" id="search" style="width:200px;" placeholder="Player Name">
+                    <h3>Position:</h3>
+                    <select name="position" id="position" style="width:200px;">
+                      <option value="any-Position" selected>Any</option>
+                      <option value="PG">PG</option>
+                      <option value="SG">SG</option>
+                      <option value="SF">SF</option>
+                      <option value="PF">PF</option>
+                      <option value="C">C</option>
+                    </select>
+                    <h3>Team:</h3>
+                    <select name="team" id="team" style="width:200px;">
+                      <option value="any-Team" selected>Any</option>
+                      <option value="CLE">CLE</option>
+                    </select>
+                    <h3>Value:</h3>
+                    <select name="value" id="value" style="width:200px;">
+                      <option value="any-Value" selected>Any</option>
+                      <option value="Undervalued">Undervalued</option>
+                      <option value="Overvalued">Overvalued</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-9">
+                    <table id="prediction-table" class="container text-center">
+                      <tr id="top-row">
+                        <td>Name</td>
+                        <td>Position</td>
+                        <td>Team</td>
+                        <td>Value</td>
+                      </tr>
+                      <tr>
+                        <td>Steph Curry</td>
+                        <td>PG</td>
+                        <td>GSW</td>
+                        <td class="overvalued">Overvalued</td>
+                      </tr>
+                      <tr>
+                        <td>Lebron James</td>
+                        <td>SF</td>
+                        <td>CLE</td>
+                        <td class="overvalued">Overvalued</td>
+                      </tr>
+                      <tr>
+                        <td>Carmelo Anthony</td>
+                        <td>SF</td>
+                        <td>OKC</td>
+                        <td class="undervalued">Undervalued</td>
+                      </tr>
+                      <tr>
+                        <td>Dwight Howard</td>
+                        <td>C</td>
+                        <td>ATL</td>
+                        <td class="overvalued">Overvalued</td>
+                      </tr>
+                      <tr>
+                        <td>Kristaps Porzingis</td>
+                        <td>PF</td>
+                        <td>NYK</td>
+                        <td class="undervalued">Undervalued</td>
+                      </tr>
+                      <tr>
+                        <td>Chris Paul</td>
+                        <td>PG</td>
+                        <td>HOU</td>
+                        <td class="undervalued">Undervalued</td>
+                      </tr>
+                      <tr>
+                        <td>Kevin Love</td>
+                        <td>PF</td>
+                        <td>CLE</td>
+                        <td class="undervalued">Undervalued</td>
+                      </tr>
+                      <tr>
+                        <td>Kevin Durant</td>
+                        <td>PF</td>
+                        <td>GSW</td>
+                        <td class="overvalued">Overvalued</td>
+                      </tr>
+                      <tr>
+                        <td>James Harden</td>
+                        <td>SG</td>
+                        <td>HOU</td>
+                        <td class="overvalued">Overvalued</td>
+                      </tr>
+                      <tr>
+                        <td>Giannis Antetokounmpo</td>
+                        <td>SF</td>
+                        <td>MIL</td>
+                        <td class="undervalued">Undervalued</td>
+                      </tr>
+
+
+                    </table>
+                  </div>
+                </div>
               </div>
-              <table id="table" class="container text-center">
-                <tr>
-                  <td>First Name</td>
-                  <td>Last Name</td>
-                  <td>Position</td>
-                  <td>Team</td>
-                  <td>ESPN Score</td>
-                  <td>Our Predicted Score</td>
-                </tr>
-                <tr>
-                  <td>Steph</td>
-                  <td>Curry</td>
-                  <td>PG</td>
-                  <td>GSW</td>
-                  <td>35</td>
-                  <td>40</td>
-                </tr>
-                <tr>
-                  <td>Lebron</td>
-                  <td>James</td>
-                  <td>SF</td>
-                  <td>CLE</td>
-                  <td>33</td>
-                  <td>37</td>
-                </tr>
-                <tr>
-                  <td>Carmelo</td>
-                  <td>Anthony</td>
-                  <td>SF</td>
-                  <td>NYK</td>
-                  <td>30</td>
-                  <td>25</td>
-                </tr>
-                <tr>
-                  <td>Dwight</td>
-                  <td>Howard</td>
-                  <td>CEN</td>
-                  <td>ATL</td>
-                  <td>20</td>
-                  <td>15</td>
-                </tr>
-                <tr>
-                  <td>Kristaps</td>
-                  <td>Porzingis</td>
-                  <td>PF</td>
-                  <td>NYK</td>
-                  <td>15</td>
-                  <td>23</td>
-                </tr>
-                <tr>
-                  <td>Chris</td>
-                  <td>Paul</td>
-                  <td>PG</td>
-                  <td>Hou</td>
-                  <td>18</td>
-                  <td>27</td>
-                </tr>
-                <tr>
-                  <td>Kevin</td>
-                  <td>Love</td>
-                  <td>PF</td>
-                  <td>CLE</td>
-                  <td>20</td>
-                  <td>17</td>
-                </tr>
 
 
-              </table>
-              
-              
+
             </div>
           </div>
         </div>
@@ -160,7 +222,7 @@
     <!-- Footer -->
     <footer>
       <div class="container text-center">
-        <p>Copyright &copy; Your Website 2017</p>
+        <p>Copyright &copy; NBAI</p>
       </div>
     </footer>
 
@@ -173,7 +235,7 @@
     <script src="{{url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
     <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
-    
+
     <!--
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
     -->
