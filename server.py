@@ -18,12 +18,22 @@ name_column_index =0;
 
 nbai = [
 ['Dwayne Wayde', 'CLE', 'SG', '25', 'Undervalued'],
+['Derrick Rose', 'CLE', 'PG', '15', 'Undervalued'],
+['Kevin Love', 'CLE', 'C', '20', 'Overvalued'],
 ['LeBron James', 'CLE', 'SF', '30', 'Undervalued'],
 ['Isaiah Thomas', 'CLE', 'PG', '25', 'Overvalued'],
-['Steph Curry', 'GSW', 'PG', '25', 'Undervalued']
+['Kevin Durant', 'GSW', 'SF', '30', 'Undervalued'],
+['Steph Curry', 'GSW', 'PG', '25', 'Undervalued'],
+['Klay Thompson', 'GSW', 'SG', '27', 'Overvalued'],
+['Draymond Green', 'GSW', 'PF', '23', 'Overvalued'],
+['Kyrie Irving', 'BOS', 'PG', '22', 'Undervalued'],
+['Gordon Hayward', 'BOS', 'SF', '24', 'Undervalued'],
+['Al Horford', 'BOS', 'C', '27', 'Overvalued'],
+['James Harden', 'HOU', 'SG', '35', 'Overvalued'],
+['Chris Paul', 'HOU', 'PG', '22', 'Undervalued']
 ]
 
-teamlist = ['CLE', 'GSW']
+teamlist = ['CLE', 'GSW', 'HOU', 'BOS']
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
