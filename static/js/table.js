@@ -42,7 +42,7 @@ function sortTable(n){
 	while(switching){
 
 		switching = false;
-		var rows = table.getElementsByTagName("TR");
+		var rows = table.getElementsByTagName("tr");
 
 		for (var current_row_index = 1; current_row_index < (rows.length - 1); current_row_index ++){
 			var shouldSwitch = false;
@@ -62,6 +62,7 @@ function sortTable(n){
 				}
 			}
 		}
+    display_color = 0;
 		if (shouldSwitch) {
 			rows[current_row_index].parentNode.insertBefore(rows[current_row_index + 1],rows[current_row_index]);
 			switching = true;
@@ -84,45 +85,46 @@ function newFilterFunction(name_index, team_index, position_index, value_index )
 	var table = document.getElementById("table");
   	var rows = table.getElementsByTagName("tr");
 
-  	for (var i = 0; i< (rows.length); i++){
+  	for (var i = 0; i < (rows.length); i++){
   		rows[i].style.display = "";
-  	} 
-  	for (var i = 1; i< (rows.length); i++){
+  	}
+    var display_color = 0;
+  	for (var i = 1; i < (rows.length); i++){
   		//alert(search_filter+team_filter+position_filter);
   		var cur_row_name = rows[i].getElementsByTagName("td")[name_index];
   		var cur_row_team = rows[i].getElementsByTagName("td")[team_index];
-  		var cur_row_pos = rows[i].getElementsByTagName("td")[position_index];
-  		var cur_row_val = rows[i].getElementsByTagName("td")[value_index];
-  		
+  		var cur_row_pos  = rows[i].getElementsByTagName("td")[position_index];
+  		var cur_row_val  = rows[i].getElementsByTagName("td")[value_index];
+
   		//name filter
   		if (cur_row_name){
-  			var name_bool = (cur_row_name.innerHTML.toUpperCase().indexOf(search_filter) > -1);	
+  			var name_bool = (cur_row_name.innerHTML.toUpperCase().indexOf(search_filter) > -1);
   		}
   		var name_all = (search_filter.length == 0);
-  		
+
   		//team filter
   		if (cur_row_team){
   			var team_bool = (cur_row_team.innerHTML.toUpperCase().indexOf(team_filter) > -1);
   		}
   		var team_all = (team_filter == "ALL");
-  		
+
   		//position filter
   		if (cur_row_pos){
   			var pos_bool = (cur_row_pos.innerHTML.toUpperCase().indexOf(position_filter) > -1);
   		}
   		var pos_all = (position_filter == "ALL");
-  		
 
   		//value filter
   		if (cur_row_val){
   			var val_bool = (cur_row_val.innerHTML.toUpperCase().indexOf(value_filter) > -1);
   		}
   		var val_all = (value_filter == "ALL");
-  		
 
 
   		if ((name_bool||name_all)&&(team_bool||team_all)&&(pos_bool||pos_all)&&(val_bool||val_all)) {
   			rows[i].style.display = "";
+        // setColors(display_color, rows[i]);
+
   		}
   		else{
   			rows[i].style.display = "none";
@@ -131,3 +133,15 @@ function newFilterFunction(name_index, team_index, position_index, value_index )
 
   	}
 }
+
+// function setColors(display_color, row) {
+//   if(display_color == 0) {
+//     row.style.backgroundColor = "white";
+//     display_color = 1;
+//   }
+//   else{
+//     row.style.backgroundColor = "#f4f8fb";
+//     display_color = 0;
+//   }
+// }
+
