@@ -28,7 +28,7 @@ tr {
 /* Predictions Section*/
 #predictions-section {
 	background-color: #ebeff2;
-	padding: 100px;
+	padding: 50px 100px 100px 100px;
 }
 
 #predictions-section h1, h2, h3{
