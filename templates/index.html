@@ -19,8 +19,8 @@
     <link href='https://fonts.googleapis.com/css?family=Cabin:700' rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this template -->
-	<link rel="stylesheet" href="{{url_for('static', filename='css/grayscale.css')}}">
-	<link rel="stylesheet" href="{{url_for('static', filename='css/table.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/table.css')}}">
+	  <link rel="stylesheet" href="{{url_for('static', filename='css/grayscale.css')}}">
 
   </head>
 
@@ -77,42 +77,46 @@
         </div>
 
         <div class="row players-of-the-week">
-          <div class="col-lg-4 mx-auto" style="color:black;">
-            <img src="../static/img/chrispaul.png" alt="potw1">
+          <div class="col-lg-4 mx-auto">
+            <img src="../static/img/derrickrose.png" alt="potw1">
             <div style="background-color: #5bbfaa; width: 90%; text-align:center; margin: 10px  auto; ">
-              <h4 style="color:white; padding: 5px; margin-bottom:10px;">Chris Paul</h4>
-              <p style="color:white; margin-bottom:10px;">Averaging 30,000 PPG</p>
-              <p style="color:white; padding-bottom:10px">Undervalued by X</p>
+              <h4 style="color:white; padding: 5px; margin-bottom:0px;">Derrick Rose</h4>
+              <p style="line-height: 18px; padding: 15px; font-size: 16px; margin-bottom: 10px;">Rose accumulated seven points (2-3 FG, 3-4 FT) and three assists across 15 minutes during Wednesday's 109-93 loss to the Hawks.</p>
+              <!-- <p style="color:white; padding-bottom:10px">Undervalued by X</p> -->
             </div>
           </div>
-          <div class="col-lg-4 mx-auto" style="color:black;">
-            <img src="../static/img/kevinlove.png" alt="potw2">
+          <div class="col-lg-4 mx-auto">
+            <img src="../static/img/kyrieirving.png" alt="potw2">
             <div style="background-color: #5bbfaa; width: 90%; text-align:center; margin: 10px  auto; ">
-              <h4 style="color:white; padding: 5px; margin-bottom:10px;">Kevin Love</h4>
-              <p style="color:white; margin-bottom:10px;">Playing center now so yeah.</p>
-              <p style="color:white; padding-bottom:10px">Undervalued by Y</p>
+              <h4 style="color:white; padding: 5px; margin-bottom:0px;">Kyrie Irving</h4>
+              <p style="line-height: 18px; padding: 15px; font-size: 16px; margin-bottom: 10px;">Irving notched nine points (4-11 FG, 1-3 3Pt), four rebounds, three assists, two steals and one turnover across 19 minutes during Monday's preseason opener against the Hornets.</p>
+              <!-- <p style="color:white; padding-bottom:10px;">Undervalued by Y</p> -->
             </div>
           </div>
-          <div class="col-lg-4 mx-auto" style="color:black;">
-            <img src="../static/img/kristapsporzingis.png" alt="potw3">
+          <div class="col-lg-4 mx-auto">
+            <img src="../static/img/gordonhayward.png" alt="potw3">
             <div style="background-color: #5bbfaa; width: 90%; text-align:center; margin: 10px auto; ">
-              <h4 style="color:white; padding: 5px; margin-bottom:10px;">Kristaps Porzingis</h4>
-              <p style="color:white; margin-bottom:10px;">PORZINGOD</p>
-              <p style="color:white; padding-bottom:10px">Undervalued by Z</p>
+              <h4 style="color:white; padding: 5px; margin-bottom:0px;">Gordon Hayward</h4>
+              <p style="line-height: 18px; padding: 15px; font-size: 16px; margin-bottom: 10px;">Hayward finished Monday's preseason opener against the Hornets with five points (2-6 FG, 0-2 3Pt, 1-2 FT), five rebounds, one assist and one turnover across 17 minutes.</p>
+              <!-- <p style="color:white; padding-bottom:10px">Undervalued by Z</p> -->
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-lg-10 mx-auto">
-            <h1>Daily Player Fantasy Score Predictions</h1>
+            <h1 style ="margin-bottom: 5px;">Daily Player Fantasy Score Predictions</h1>
+            <h4 style="color: #5bbfaa;">First Games: Tuesday, October 17, 2017</h3>
             <div class="prediction-table-outer-container">
               <div id="prediction-table-inner-container">
                 <div class="row">
                   <div id ="table-filter" class="col-lg-3">
+
                     <h2>Search Filter</h2>
                     <p>Search on players based on name, team, position.</p>
+
                     <h3>Name:</h3>
                     <input type="text" id="search" style="width:200px;" placeholder="Player Name" onkeyup="newFilterFunction({{name_index}}, {{team_index}}, {{position_index}}, {{value_index}})">
+
                     <h3>Position:</h3>
                     <select onchange = "newFilterFunction({{name_index}}, {{team_index}}, {{position_index}}, {{value_index}})" name="position" id="position_dropdown" style="width:200px;">
                       <option value="ALL" selected>ALL</option>
@@ -122,16 +126,15 @@
                       <option value="PF">PF</option>
                       <option value="C">C</option>
                     </select>
+
                     <h3>Team:</h3>
                     <select onchange = "newFilterFunction({{name_index}}, {{team_index}}, {{position_index}}, {{value_index}})" name="team" id="team_dropdown" style="width:200px;">
                       <option value="ALL" selected>ALL</option>
                       {% for datum in team_list %}
                       <option value={{datum}}>{{datum}}</option>
                       {% endfor %}
-                      <!-- <option value="CLE">CLE</option>
-                      <option value="GSW">GSW</option> -->
-
                     </select>
+
                     <h3>Value:</h3>
                     <select onchange = "newFilterFunction({{name_index}}, {{team_index}}, {{position_index}}, {{value_index}})" name="value" id="value_dropdown" style="width:200px;">
                       <option value="ALL" selected>ALL</option>
@@ -139,6 +142,7 @@
                       <option value="Overvalued">Overvalued</option>
                     </select>
                   </div>
+
                   <div class="col-lg-9">
                     <table id="table" class="container text-center">
 
@@ -161,74 +165,6 @@
                         {% endfor %}
                       </tr>
                       {% endfor %}
-                      <!-- <tr id="top-row">
-                        <td>Name</td>
-                        <td>Position</td>
-                        <td>Team</td>
-                        <td>Value</td>
-                      </tr>
-                      <tr>
-                        <td>Steph Curry</td>
-                        <td>PG</td>
-                        <td>GSW</td>
-                        <td class="overvalued">Overvalued</td>
-                      </tr>
-                      <tr>
-                        <td>Lebron James</td>
-                        <td>SF</td>
-                        <td>CLE</td>
-                        <td class="overvalued">Overvalued</td>
-                      </tr>
-                      <tr>
-                        <td>Carmelo Anthony</td>
-                        <td>SF</td>
-                        <td>OKC</td>
-                        <td class="undervalued">Undervalued</td>
-                      </tr>
-                      <tr>
-                        <td>Dwight Howard</td>
-                        <td>C</td>
-                        <td>ATL</td>
-                        <td class="overvalued">Overvalued</td>
-                      </tr>
-                      <tr>
-                        <td>Kristaps Porzingis</td>
-                        <td>PF</td>
-                        <td>NYK</td>
-                        <td class="undervalued">Undervalued</td>
-                      </tr>
-                      <tr>
-                        <td>Chris Paul</td>
-                        <td>PG</td>
-                        <td>HOU</td>
-                        <td class="undervalued">Undervalued</td>
-                      </tr>
-                      <tr>
-                        <td>Kevin Love</td>
-                        <td>PF</td>
-                        <td>CLE</td>
-                        <td class="undervalued">Undervalued</td>
-                      </tr>
-                      <tr>
-                        <td>Kevin Durant</td>
-                        <td>PF</td>
-                        <td>GSW</td>
-                        <td class="overvalued">Overvalued</td>
-                      </tr>
-                      <tr>
-                        <td>James Harden</td>
-                        <td>SG</td>
-                        <td>HOU</td>
-                        <td class="overvalued">Overvalued</td>
-                      </tr>
-                      <tr>
-                        <td>Giannis Antetokounmpo</td>
-                        <td>SF</td>
-                        <td>MIL</td>
-                        <td class="undervalued">Undervalued</td>
-                      </tr> -->
-
-
                     </table>
                   </div>
                 </div>
