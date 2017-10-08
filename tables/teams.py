@@ -11,14 +11,14 @@ class TeamRecord(DatabaseRecord):
     __collection__ = TABLE_NAME
 
     structure = {
-	f.team_id    : s.team_id,
-       	f.team_name  : s.team_name,
-       	f.team_abbr  : s.team_abbr,
+        f.team_id    : s.team_id,
+        f.team_name  : s.team_name,
+        f.team_abbr  : s.team_abbr,
         f.division   : s.division,
-       	f.conference : s.conference,
-       	f.color      : s.color,
+        f.conference : s.conference,
+        f.color      : s.color,
         f.colors     : s.colors,
-	f.roster     : s.roster,
+        f.roster     : s.roster,
         f.games_dict : s.games_dict,
     }
 

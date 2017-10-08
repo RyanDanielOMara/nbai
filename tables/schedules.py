@@ -15,7 +15,7 @@ class ScheduleRecord(DatabaseRecord):
     structure = {
         f.game_date      : s.game_date,
         f.game_id        : s.game_id,
-	f.team_id        : s.team_id,
+        f.team_id        : s.team_id,
         f.is_home        : s.is_home,
         f.game_log_saved : s.game_log_saved,
     }
