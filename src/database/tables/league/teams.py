@@ -1,7 +1,9 @@
-from _base import DatabaseRecord
-from connection import connection
-from fields import Fields as f
-from fields import Structure as s
+from database.connection import connection
+from database.tables._base import DatabaseRecord
+from database.tables.fields import Fields as f
+from database.tables.fields import Structure as s
+
+
 
 TABLE_NAME = 'teams'
 
