@@ -1,8 +1,8 @@
-from mongokit import Document
-from connection import connection, DATABASE_NAME
-from fields import Fields as f
-from fields import Structure as s
 import datetime
+from mongokit import Document
+from database.connection import connection, DATABASE_NAME
+from database.tables.fields import Fields as f
+from database.tables.fields import Structure as s
 
 
 

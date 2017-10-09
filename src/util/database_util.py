@@ -6,13 +6,13 @@ from pymongo import MongoClient
 from util.basic import log_call_stack
 from web_api.roster import get_all_current_rosters
 from web_api.players import get_all_short_player_bios, get_full_player_bio
-from tables.fields import Fields as f
-from tables.connection import DATABASE_NAME, connection
-from tables.players import PlayerRecord
-from tables.player_game_logs import PlayerGameLogRecord
-from tables.teams import TeamRecord
-from tables.team_game_logs import TeamGameLogRecord
-from tables.schedules import ScheduleRecord
+from database.connection import DATABASE_NAME, connection
+from database.tables.fields import Fields as f
+from database.tables.league.players import PlayerRecord
+from database.tables.league.player_game_logs import PlayerGameLogRecord
+from database.tables.league.teams import TeamRecord
+from database.tables.league.team_game_logs import TeamGameLogRecord
+from database.tables.league.schedules import ScheduleRecord
 
 
 

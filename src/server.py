@@ -42,10 +42,6 @@ nbai = [
     ['Channing Frye', 'CLE', 'SF', 'BOS', 10, 'Overvalued'],
     ['Marcus Smart', 'BOS', 'PF', 'CLE', 10, 'Undervalued'],
     ['Kyle Korver', 'CLE', 'SG', 'BOS', 10, 'Overvalued'],
-    ['Derrick Williams', 'CLE', 'PG', 'BOS', 9, 'Overvalued'],
-    ['Zaza Pachulia', 'GSW', 'PF', 'HOU', 9, 'Overvalued'],
-    ['Jonas Jerebko', 'BOS', 'C', 'CLE', 9, 'Overvalued'],
-    ['Shaun Livingston', 'GSW', 'DF', 'HOU', 8, 'Overvalued']
 ]
 
 

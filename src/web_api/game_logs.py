@@ -1,7 +1,7 @@
 import nba_py
 from nba_py import league as nba_py_league
 
-from tables.fields import Fields as f
+from database.tables.fields import Fields as f
 from util.basic import identity, cast_int, is_home, is_win, get_player_game_id, get_team_game_id, get_season
 
 nba_py.HAS_PANDAS = False

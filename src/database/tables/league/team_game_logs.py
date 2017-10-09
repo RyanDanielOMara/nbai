@@ -1,7 +1,7 @@
-from _game_logs import GameLogRecord
-from connection import connection
-from fields import Fields as f
-from fields import Structure as s
+from database.connection import connection
+from database.tables.league._game_logs import GameLogRecord
+from database.tables.fields import Fields as f
+from database.tables.fields import Structure as s
 
 
 

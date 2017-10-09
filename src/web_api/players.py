@@ -1,7 +1,7 @@
 import nba_py
 
 from nba_py import player as nba_py_player
-from tables.fields import Fields as f
+from database.tables.fields import Fields as f
 from util.basic import identity, cast_int, get_height, get_dob
 
 nba_py.HAS_PANDAS = False
