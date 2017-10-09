@@ -26,7 +26,7 @@ class TeamGameLogRecord(GameLogRecord):
 
     required_fields = [
         f.team_game_id,
-        f.roster_id,
+        f.roster,
     ]
 
     default_values = {
