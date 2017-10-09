@@ -26,13 +26,10 @@ class GameLogRecord(DatabaseRecord):
         f.minutes      : s.minutes,
         f.fgm          : s.fgm,
         f.fga          : s.fga,
-        f.fg_pct       : s.fg_pct,
         f.fg3m         : s.fg3m,
         f.fg3a         : s.fg3a,
-        f.fg3_pct      : s.fg3_pct,
         f.ftm          : s.ftm,
         f.fta          : s.fta,
-        f.ft_pct       : s.ft_pct,
         f.won          : s.won,
     }
 
@@ -56,13 +53,10 @@ class GameLogRecord(DatabaseRecord):
         f.minutes,
         f.fgm,
         f.fga,
-        f.fg_pct,
         f.fg3m,
         f.fg3a,
-        f.fg3_pct,
         f.ftm,
         f.fta,
-        f.ft_pct,
         f.won,
     ]
 
