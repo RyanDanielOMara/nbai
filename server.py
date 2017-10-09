@@ -1,17 +1,11 @@
 #!env/bin/python
+import argparse
 import flask
-import sys
 
 app = flask.Flask(__name__)
 
-some_list = ['Name', 'Team', 'Position', 'ESPN Score', 'Our Predictions']
+some_list = ['Name', 'Team', 'Position', 'Opponent', 'Our Predictions']
 
-some_dict = {
-
-	'LeBron Jamz' : ['CLE', 23, 61],
-	'Kobe Bryant' : ['LAL', 8,  81]
-
-}
 
 value_column_index = 4;
 position_column_index = 2;
@@ -19,21 +13,41 @@ team_column_index= 1;
 name_column_index =0;
 
 nbai = [
-['Dwayne Wayde', 'CLE', 'SG', '25', 'Undervalued'],
-['Derrick Rose', 'CLE', 'PG', '15', 'Undervalued'],
-['Kevin Love', 'CLE', 'C', '20', 'Overvalued'],
-['LeBron James', 'CLE', 'SF', '30', 'Undervalued'],
-['Isaiah Thomas', 'CLE', 'PG', '25', 'Overvalued'],
-['Kevin Durant', 'GSW', 'SF', '30', 'Undervalued'],
-['Steph Curry', 'GSW', 'PG', '25', 'Undervalued'],
-['Klay Thompson', 'GSW', 'SG', '27', 'Overvalued'],
-['Draymond Green', 'GSW', 'PF', '23', 'Overvalued'],
-['Kyrie Irving', 'BOS', 'PG', '22', 'Undervalued'],
-['Gordon Hayward', 'BOS', 'SF', '24', 'Undervalued'],
-['Al Horford', 'BOS', 'C', '27', 'Overvalued'],
-['James Harden', 'HOU', 'SG', '35', 'Overvalued'],
-['Chris Paul', 'HOU', 'PG', '22', 'Undervalued']
+ ['LeBron James', 'CLE', 'SF', 'BOS', 28],
+ ['Kevin Durant', 'GSW', 'SF', 'HOU', 26],
+ ['Kevin Love', 'CLE', 'C', 'BOS', 22],
+ ['Stephen Curry', 'GSW', 'PG', 'HOU', 22],
+ ['James Harden', 'HOU', 'SG', 'GSW', 21],
+ ['Al Horford', 'BOS', 'SF', 'CLE', 21],
+ ['David West', 'GSW', 'PF', 'HOU', 19],
+ ['Deron Williams', 'CLE', 'PG', 'BOS', 19],
+ ['Kyrie Irving', 'BOS', 'PG', 'CLE', 18],
+ ['Andre Iguodala', 'GSW', 'SF', 'HOU', 17],
+ ['Isaiah Thomas', 'CLE', 'PG', 'BOS', 15],
+ ['Klay Thompson', 'GSW', 'SG', 'HOU', 14],
+ ['Eric Gordon', 'HOU', 'PF', 'GSW', 14],
+ ['Trevor Ariza', 'HOU', 'PF', 'GSW', 14],
+ ['Tristan Thompson', 'CLE', 'PF', 'BOS', 13],
+ ['Ryan Anderson', 'HOU', 'PF', 'GSW', 13],
+ ['Lou Williams', 'HOU', 'SG', 'GSW', 12],
+ ['Amir Johnson', 'BOS', 'SF', 'CLE', 12],
+ ['Matt Barnes', 'GSW', 'PG', 'HOU', 11],
+ ['Tyler Zeller', 'BOS', 'PG', 'CLE', 11],
+ ['Draymond Green', 'GSW', 'C', 'HOU', 11],
+ ['JaVale McGee', 'GSW', 'C', 'HOU', 11],
+ ['JR Smith', 'CLE', 'SG', 'BOS', 11],
+ ['Patrick Beverley', 'HOU', 'PF', 'GSW', 11],
+ ['Richard Jefferson', 'CLE', 'PF', 'BOS', 11],
+ ['Kelly Olynyk', 'BOS', 'SG', 'CLE', 11],
+ ['Channing Frye', 'CLE', 'SF', 'BOS', 10],
+ ['Marcus Smart', 'BOS', 'PF', 'CLE', 10],
+ ['Kyle Korver', 'CLE', 'SG', 'BOS', 10],
+ ['Derrick Williams', 'CLE', 'PG', 'BOS', 9],
+ ['Zaza Pachulia', 'GSW', 'PF', 'HOU', 9],
+ ['Jonas Jerebko', 'BOS', 'C', 'CLE', 9],
+ ['Shaun Livingston', 'GSW', 'DF', 'HOU', 8]
 ]
+
 
 teamlist = ['CLE', 'GSW', 'HOU', 'BOS']
 
@@ -41,31 +55,26 @@ teamlist = ['CLE', 'GSW', 'HOU', 'BOS']
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def home_page(path):
-	return flask.render_template(
-		'index.html',
-		header_list=some_list,
-		website_table=nbai,
-		position_index=position_column_index,
-		team_index=team_column_index,
-		name_index=name_column_index,
-		value_index=value_column_index,
-		team_list = teamlist
-		)
+    return flask.render_template(
+        'index.html',
+        header_list=some_list,
+        website_table=nbai,
+        position_index=position_column_index,
+        team_index=team_column_index,
+        name_index=name_column_index,
+        value_index=value_column_index,
+        team_list = teamlist
+    )
 
-if len(sys.argv) != 2:
-	print("Please add a server port as a command line argument.")
-	exit()
-else:
-	try:
-		int(sys.argv[1])
-	except ValueError:
-		print("Command line argument invalid! \n Argument should be the listening port of the server. \n (Integer between 1 and 65535)")
-		exit()
 
-	if  (sys.argv[1] > 1 and sys.argv[1] < 65535):
-		print("Command line argument incorrect! \n Argument should be the listening port of the server. \n (Integer between 1 and 65535) ")
-		exit()
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--host', default='0.0.0.0')
+    parser.add_argument('--port', default=5000, type=int, choices=xrange(1, 65536))
+    return parser.parse_args()
 
 
 if __name__ == '__main__':
-	app.run(host="0.0.0.0", port=sys.argv[1])
+    args = parse_args()
+        app.run(host=args.host, port=args.port)
+
