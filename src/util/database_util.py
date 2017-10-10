@@ -4,8 +4,7 @@ import nba_py
 from pymongo import MongoClient
 
 from util.basic import log_call_stack
-from web_api.roster import get_all_current_rosters
-from web_api.players import get_all_short_player_bios, get_full_player_bio
+from web_api.api import get_all_current_rosters, get_all_short_player_bios, get_long_player_bio
 from database.connection import DATABASE_NAME, connection
 from database.tables.fields import Fields as f
 from database.tables.league.players import PlayerRecord
@@ -230,7 +229,7 @@ def update_rosters():
 
         team_id = team_rec.team_id
         old_roster = team_rec.roster
-        new_roster = rosters[team_id]
+        new_roster = rosters[team_id].roster
 
         ## Set the teams new roster
         team_rec.roster = new_roster
@@ -295,7 +294,7 @@ def update_player_bios(full_bio=False, reupdate_full_bios=False):
             ## If this player doesn't have their full bio,
             ## or if you want to update it regardless, then do so:
             if reupdate_full_bios or not player_rec.has_bio:
-                bio = get_full_player_bio(player_rec.player_id)
+                bio = get_long_player_bio(player_rec.player_id)
 
                 ## Set all the fields
                 for field in bio.attrs:
