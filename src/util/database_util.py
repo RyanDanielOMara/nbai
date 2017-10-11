@@ -4,7 +4,7 @@ import nba_py
 from pymongo import MongoClient
 
 from util.basic import log_call_stack
-from web_api.api import get_all_current_rosters, get_all_short_player_bios, get_long_player_bio
+from web_api.api import get_all_current_rosters, get_all_short_player_bios, get_long_player_bio, get_2017_schedule_nodes
 from database.connection import DATABASE_NAME, connection
 from database.tables.fields import Fields as f
 from database.tables.league.players import PlayerRecord
@@ -128,7 +128,7 @@ def create_and_save_all_player_records(player_game_logs, year, player_dict=None)
 
 
 """
-Creates and saves all nonexistient PlayerGameLogRecords, if not present
+Creates and saves all nonexistient PlayerGameLogRecords, if not present in the database
 """
 def create_and_save_all_player_game_log_records(player_game_logs):
     _create_and_save_game_logs(player_game_logs, f.player_game_id, PlayerGameLogRecord.__collection__)
@@ -136,7 +136,7 @@ def create_and_save_all_player_game_log_records(player_game_logs):
 
 
 """
-Creates and saves all nonexistient TeamGameLogRecords, if not present
+Creates and saves all nonexistient TeamGameLogRecords, if not present in the database
 """
 def create_and_save_all_team_game_log_records(team_game_logs, team_game_rosters):
     _create_and_save_game_logs(team_game_logs, f.team_game_id, TeamGameLogRecord.__collection__, team_game_rosters)
@@ -307,4 +307,69 @@ def update_player_bios(full_bio=False, reupdate_full_bios=False):
         logging.info('Updated {} Player bios in total'.format(counter_for_logging))
 
 
+
+"""
+Creates and saves all nonexistient ScheduleRecords, if not present in the database
+"""
+def create_and_save_all_schedule_records(team_game_nodes):
+
+    ## Create a dict of (team_game_id, game_date) pairs
+    scheds = { node.team_game_id : node for node in team_game_nodes }
+    game_dates = list(set([node.game_date for node in team_game_nodes]))
+
+    ## Query the database for every ScheduleRecord
+    sched_table = getattr(getattr(MongoClient(), DATABASE_NAME), ScheduleRecord.__collection__)
+    query = { f.game_date : { '$in' : game_dates } }
+    previously_saved_records = { rec[f.team_game_id] : rec for rec in sched_table.find(query) }
+
+    ## Create ScheduleRecords for all games not in the database
+    batch = [_get_schedule_record(node, True)
+             for node in scheds.values()
+             if node.team_game_id not in previously_saved_records]
+
+    ## Save all new records
+    num_saved_records = 0
+    if len(batch) > 0:
+        num_saved_records = len(sched_table.insert(batch))
+    logging.info('Updated {} ScheduleRecords.'.format(num_saved_records))
+
+
+
+def _get_schedule_record(node, game_log_saved):
+    rec = connection.ScheduleRecord()
+    rec.game_date    = node.game_date
+    rec.game_id      = node.game_id
+    rec.team_id      = node.team_id
+    rec.team_game_id = node.team_game_id
+    rec.is_home      = node.is_home
+    rec.game_log_saved = game_log_saved
+    return rec
+
+
+
+@log_call_stack
+def create_and_save_2017_schedule_records(skip_preseason=True,
+                                          skip_regular_season=False,
+                                          skip_postseason=True):
+
+    ## Get all the ScheduleNodes for this year
+    schedule_nodes = get_2017_schedule_nodes(skip_preseason, skip_regular_season, skip_postseason)
+
+    ## Get a list of game_ids from these nodes
+    team_game_ids = [node.team_game_id for node in schedule_nodes]
+
+    ## Query the database for every 2017 ScheduleRecord
+    sched_table = getattr(getattr(MongoClient(), DATABASE_NAME), ScheduleRecord.__collection__)
+    query = { f.team_game_id : { '$in' : team_game_ids } }
+    previously_saved_records = { rec[f.team_game_id] : rec for rec in sched_table.find(query) }
+
+    ## Create ScheduleRecords for all games not in the database
+    batch = [_get_schedule_record(node, False) for node in schedule_nodes
+             if node.team_game_id not in previously_saved_records]
+
+    ## Save all new records
+    num_saved_records = 0
+    if len(batch) > 0:
+        num_saved_records = len(sched_table.insert(batch))
+    logging.info('Updated {} ScheduleRecords.'.format(num_saved_records))
 

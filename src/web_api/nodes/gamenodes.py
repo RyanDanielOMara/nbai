@@ -1,6 +1,6 @@
 from database.tables.fields import Fields as f
 from web_api.nodes.basenode import BaseNode
-from web_api.parsers import cast_int, is_home, is_win, get_player_game_id, get_team_game_id
+from web_api.parsers import cast_int, is_home, is_win, get_player_game_id, get_team_game_id, get_game_date
 
 
 
@@ -58,6 +58,7 @@ class BaseGameNode(BaseNode):
             f.player_id      : cast_int,
             f.player_game_id : get_player_game_id,
             f.team_game_id   : get_team_game_id,
+            f.game_date      : get_game_date,
             f.roster         : lambda k, v : []
         }
         return

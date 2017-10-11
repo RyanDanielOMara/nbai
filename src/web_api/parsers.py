@@ -1,6 +1,8 @@
 import logging
+import datetime
 
 
+GAME_DATE_FORMATS = ['%Y-%m-%d']
 
 def get_gid_tid(nba_data):
     return (nba_data['GAME_ID'], nba_data['TEAM_ID'])
@@ -73,6 +75,17 @@ def get_dob(nba_data, nba_key):
         msg = 'Error parsing dob: {}'
         logging.warning(msg.format(nba_data[nba_key]))
         return None
+
+
+
+def get_game_date(nba_data, nba_key):
+    for date_format in GAME_DATE_FORMATS:
+        try:
+            date = datetime.datetime.strptime(str(nba_data[nba_key]), date_format)
+            return datetime.datetime.strftime(date, '%Y%m%d')
+        except:
+            continue
+        raise ValueError('No game date present for this node: {}'.format(nba_data))
 
 
 

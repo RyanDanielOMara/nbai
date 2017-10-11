@@ -14,6 +14,7 @@ class ScheduleRecord(DatabaseRecord):
 
     structure = {
         f.game_date      : s.game_date,
+        f.team_game_id   : s.team_game_id,
         f.game_id        : s.game_id,
         f.team_id        : s.team_id,
         f.is_home        : s.is_home,
@@ -29,6 +30,7 @@ class ScheduleRecord(DatabaseRecord):
 
     required_fields = [
         f.game_date,
+        f.team_game_id,
         f.game_id,
         f.team_id,
         f.is_home,
