@@ -299,6 +299,7 @@ def update_player_bios(full_bio=False, reupdate_full_bios=False):
                 ## Set all the fields
                 for field in bio.attrs:
                     setattr(player_rec, field, getattr(bio, field))
+                player_rec.save()
 
                 ## Logging purposes only
                 counter_for_logging += 1
