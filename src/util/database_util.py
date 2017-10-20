@@ -273,7 +273,7 @@ every so often, such as at the end of a season or during
 initial database setup.
 """
 @log_call_stack
-def update_player_bios(full_bio=False, reupdate_full_bios=False):
+def update_player_bios(add_missing_player_bios, update_all_player_bios):
 
     ## First, update name and draft year of active players
     for bio in get_all_short_player_bios():
@@ -287,18 +287,20 @@ def update_player_bios(full_bio=False, reupdate_full_bios=False):
         player_rec.save()
 
     ## Now, update as much biographical info as you can.
-    if full_bio:
+    if add_missing_player_bios:
         counter_for_logging = 0
         for player_rec in connection.PlayerRecord.find():
 
             ## If this player doesn't have their full bio,
             ## or if you want to update it regardless, then do so:
-            if reupdate_full_bios or not player_rec.has_bio:
+            if update_all_player_bios or not player_rec.has_bio:
                 bio = get_long_player_bio(player_rec.player_id)
 
                 ## Set all the fields
                 for field in bio.attrs:
                     setattr(player_rec, field, getattr(bio, field))
+                    player_rec.has_bio = True
+                player_rec.save()
 
                 ## Logging purposes only
                 counter_for_logging += 1

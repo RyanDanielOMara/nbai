@@ -1,3 +1,5 @@
+#!env/bin/python
+import argparse
 import datetime
 import logging
 
@@ -20,7 +22,7 @@ Does not add duplicates, so if this is run multiple times in succession
 no data duplication errors will arise.
 """
 @log_call_stack
-def backfill_server(start_year=2007, end_year=CURRENT_SEASON_YEAR, update_bios=True):
+def backfill_server(start_year, end_year, add_missing_player_bios, update_all_player_bios):
 
     ## Create all the teams (without active rosters)
     database_util.create_and_save_all_team_records()
@@ -50,13 +52,30 @@ def backfill_server(start_year=2007, end_year=CURRENT_SEASON_YEAR, update_bios=T
 
     ## Now, update current rosters and player biographical data
     database_util.update_rosters()
-    database_util.update_player_bios(full_bio=update_bios)
+    database_util.update_player_bios(
+                add_missing_player_bios=add_missing_player_bios,
+                update_all_player_bios=update_all_player_bios)
 
     ## And add the most recent schedules
     database_util.create_and_save_2017_schedule_records()
 
 
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--start_year', type=int, default=2007, required=True)
+    parser.add_argument('--end_year',   type=int, default=CURRENT_SEASON_YEAR, required=True)
+    parser.add_argument('-a', '--add_missing_player_bios', action='store_true')
+    parser.add_argument('-u', '--update_all_player_bios',  action='store_true')
+    return parser.parse_args()
+
 if __name__ == '__main__':
+    args = get_args()
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
-    backfill_server()
+    backfill_server(
+        start_year              = args.start_year,
+        end_year                = args.end_year,
+        add_missing_player_bios = args.add_missing_player_bios,
+        update_all_player_bios  = args.update_all_player_bios
+    )
