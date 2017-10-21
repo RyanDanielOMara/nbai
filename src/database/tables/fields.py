@@ -16,6 +16,9 @@ class Fields:
     date_updated   = 'date_updated'
     division       = 'division'
     dob            = 'dob'
+    draft_overall  = 'draft_overall'
+    draft_round    = 'draft_round'
+    draft_year     = 'draft_year'
     dreb           = 'dreb'
     exp            = 'exp'
     fg3a           = 'fg3a'
@@ -42,6 +45,7 @@ class Fields:
     player_name    = 'player_name'
     plus_minus     = 'plus_minus'
     position       = 'position'
+    pre_nba        = 'pre_nba'
     pts            = 'pts'
     reb            = 'reb'
     roster         = 'roster'
@@ -77,6 +81,9 @@ class Structure:
     date_updated   = basestring
     division       = basestring
     dob            = basestring
+    draft_overall  = basestring
+    draft_round    = basestring
+    draft_year     = basestring
     dreb           = int
     exp            = int
     fg3a           = int
@@ -103,6 +110,7 @@ class Structure:
     player_name    = basestring
     plus_minus     = int
     position       = basestring
+    pre_nba        = basestring
     pts            = int
     reb            = int
     roster         = [int]

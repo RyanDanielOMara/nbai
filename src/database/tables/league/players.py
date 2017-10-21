@@ -13,20 +13,24 @@ class PlayerRecord(DatabaseRecord):
     __collection__ = TABLE_NAME
 
     structure = {
-        f.player_id   : s.player_id,
-        f.player_name : s.player_name,
-        f.team_id     : s.team_id,
-        f.games_dict  : s.games_dict,
-        f.weight      : s.weight,
-        f.height      : s.height,
-        f.dob         : s.dob,
-        f.country     : s.country,
-        f.first_year  : s.first_year,
-        f.last_year   : s.last_year,
-        f.exp         : s.exp,
-        f.position    : s.position,
-        f.jersey      : s.jersey,
-        f.has_bio     : s.has_bio,
+        f.player_id     : s.player_id,
+        f.player_name   : s.player_name,
+        f.team_id       : s.team_id,
+        f.games_dict    : s.games_dict,
+        f.weight        : s.weight,
+        f.height        : s.height,
+        f.dob           : s.dob,
+        f.country       : s.country,
+        f.first_year    : s.first_year,
+        f.last_year     : s.last_year,
+        f.exp           : s.exp,
+        f.position      : s.position,
+        f.jersey        : s.jersey,
+        f.draft_overall : s.draft_overall,
+        f.draft_round   : s.draft_round,
+        f.draft_year    : s.draft_year,
+        f.pre_nba       : s.pre_nba,
+        f.has_bio       : s.has_bio,
     }
 
     indexes = [
