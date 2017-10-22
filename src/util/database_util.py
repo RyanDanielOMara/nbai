@@ -265,7 +265,35 @@ def update_rosters():
 
 
 """
-Updates player biographical info.
+Updates some player biographical info.
+
+This is fast.  Sends one HTTP request and gets every player's
+name, player_id, and other fields.
+"""
+@log_call_stack
+def update_short_player_bios():
+
+    ## First, get all the player info from the web api
+    bio_dict = { node.player_id : node for node in get_all_short_player_bios() }
+
+    ## Now, for every player in the db, update their short bio
+    for player_rec in connection.PlayerRecord.find():
+
+        ## Get this player's bio
+        bio = bio_dict[player_rec.player_id]
+
+        ## Set all the fields
+        for field in bio.attrs:
+            setattr(player_rec, field, getattr(bio, field))
+
+        ## Save this record
+        player_rec.save()
+    return
+
+
+
+"""
+Updates all player biographical info.
 
 This is SLOW.  Each player requires a unique HTTP request
 to retrieve their data.  This only needs to be run once
@@ -273,40 +301,28 @@ every so often, such as at the end of a season or during
 initial database setup.
 """
 @log_call_stack
-def update_player_bios(add_missing_player_bios, update_all_player_bios):
+def update_long_player_bios(update_all_player_bios):
 
-    ## First, update name and draft year of active players
-    for bio in get_all_short_player_bios():
-        query = { f.player_id : bio.player_id }
-        player_rec = connection.PlayerRecord.one(query)
-        if player_rec is None:
-            player_rec = connection.PlayerRecord()
-            player_rec.player_id = bio.player_id
-        player_rec.player_name = bio.player_name
-        player_rec.first_year = bio.first_year
-        player_rec.save()
+    counter_for_logging = 0
+    for player_rec in connection.PlayerRecord.find():
 
-    ## Now, update as much biographical info as you can.
-    if add_missing_player_bios:
-        counter_for_logging = 0
-        for player_rec in connection.PlayerRecord.find():
+        ## If this player doesn't have their full bio,
+        ## or if you want to update it regardless, then do so:
+        if update_all_player_bios or not player_rec.has_bio:
+            bio = get_long_player_bio(player_rec.player_id)
 
-            ## If this player doesn't have their full bio,
-            ## or if you want to update it regardless, then do so:
-            if update_all_player_bios or not player_rec.has_bio:
-                bio = get_long_player_bio(player_rec.player_id)
+            ## Set all the fields
+            for field in bio.attrs:
+                setattr(player_rec, field, getattr(bio, field))
+                player_rec.has_bio = True
+            player_rec.save()
 
-                ## Set all the fields
-                for field in bio.attrs:
-                    setattr(player_rec, field, getattr(bio, field))
-                    player_rec.has_bio = True
-                player_rec.save()
-
-                ## Logging purposes only
-                counter_for_logging += 1
-                if counter_for_logging % 50 == 0:
-                    logging.info('Updated {} Player bios'.format(counter_for_logging))
-        logging.info('Updated {} Player bios in total'.format(counter_for_logging))
+            ## Logging purposes only
+            counter_for_logging += 1
+            if counter_for_logging % 50 == 0:
+                logging.info('Updated {} Player bios'.format(counter_for_logging))
+    logging.info('Updated {} Player bios in total'.format(counter_for_logging))
+    return
 
 
 
@@ -334,6 +350,7 @@ def create_and_save_all_schedule_records(team_game_nodes):
     if len(batch) > 0:
         num_saved_records = len(sched_table.insert(batch))
     logging.info('Updated {} ScheduleRecords.'.format(num_saved_records))
+    return
 
 
 

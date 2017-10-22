@@ -89,6 +89,16 @@ def get_game_date(nba_data, nba_key):
 
 
 
+def get_exp(nba_data, nba_key):
+    try:
+        return int(nba_data['TO_YEAR']) - int(nba_data['FROM_YEAR'])
+    except:
+        msg = 'Error parsing exp from nba_data: {}'.format(nba_data)
+        logging.warning(msg)
+        return None
+
+
+
 """
 Decorator for logging the call stack.
 Prints the name of the function, as well as the params

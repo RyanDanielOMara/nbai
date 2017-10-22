@@ -1,6 +1,6 @@
 from database.tables.fields import Fields as f
 from web_api.nodes.basenode import BaseNode
-from web_api.parsers import cast_int, get_height, get_dob
+from web_api.parsers import cast_int, get_height, get_dob, get_exp
 
 
 
@@ -11,11 +11,15 @@ class ShortPlayerBioNode(BaseNode):
             f.player_id   : 'PERSON_ID',
             f.player_name : 'DISPLAY_FIRST_LAST',
             f.first_year  : 'FROM_YEAR',
+            f.last_year   : 'TO_YEAR',
+            f.exp         : None,
         }
 
         self.parsers = {
             f.player_id  : cast_int,
             f.first_year : cast_int,
+            f.last_year  : cast_int,
+            f.exp        : get_exp,
         }
 
         self.init_attrs(nba_data)

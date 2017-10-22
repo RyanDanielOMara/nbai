@@ -21,7 +21,7 @@ nba_py.HAS_PANDAS = False
 Returns a list of ShortPlayerBioNodes
 """
 def get_all_short_player_bios():
-    return [ShortPlayerBioNode(datum) for datum in nba_py_player.PlayerList().info()]
+    return [ShortPlayerBioNode(datum) for datum in nba_py_player.PlayerList(only_current=0).info()]
 
 
 
