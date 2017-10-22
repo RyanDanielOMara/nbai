@@ -120,9 +120,10 @@ def create_and_save_all_player_records(player_game_logs, year, player_dict=None)
     ## Sort each PlayerRecord's list of games
     ## and save this PlayerRecord into the database
     for player_rec in player_dict.values():
-        player_rec.games_dict[year_str] = sorted(set(player_rec.games_dict.get(year_str, [])))
-        player_rec.save()
-        logging.info('SAVED PLAYER to database: {}'.format(player_rec.player_id))
+        if player_rec.games_dict.get(year_str):
+            player_rec.games_dict[year_str] = sorted(set(player_rec.games_dict[year_str]))
+            player_rec.save()
+            logging.info('SAVED PLAYER to database: {}'.format(player_rec.player_id))
     return
 
 
