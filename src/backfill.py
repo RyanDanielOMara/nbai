@@ -14,7 +14,7 @@ CURRENT_SEASON_YEAR = now.year if now.month > 8 else now.year - 1
 
 """
 Populates the database with player info and game info.
-Given a range of [start_season, end_season), this populates
+Given a range of [start_season, end_season], this populates
 the Schedules, Players, Teams, PlayerGameLog, and TeamGameLog
 collections with the appropriate data.
 
@@ -31,7 +31,7 @@ def backfill_server(start_year, end_year, add_missing_player_bios, update_all_pl
     player_dict = {}
 
     ## For each year in the date range we want to fill:
-    for year in range(start_year, end_year):
+    for year in range(start_year, end_year+1):
 
         ## Get all the PlayerGameLogs and TeamGameLogs
         player_game_nodes = get_player_game_nodes(year)
