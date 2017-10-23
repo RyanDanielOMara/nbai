@@ -169,9 +169,15 @@ def _create_and_save_game_logs(game_logs, primary_key, table_name, team_game_ros
     ## Otherwise, create any object that's not already here
     batch = [_get_game_log_record(log, primary_key, team_game_rosters)
              for idee, log in game_log_dict.items()
-             if idee not in previously_saved_records]
-    saved_records = game_log_table.insert(batch)
-    logging.info("CREATED/SAVED this many {}s:      {}".format(primary_key, len(saved_records)))
+             if idee not in previously_saved_records
+             and log.won is not None]
+
+    num_saved_records = 0
+    if batch:
+        saved_records = game_log_table.insert(batch)
+        num_saved_records = len(saved_records)
+
+    logging.info("CREATED/SAVED this many {}s:      {}".format(primary_key, num_saved_records))
     return
 
 
