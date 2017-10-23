@@ -13,7 +13,7 @@ These instructions assume you're using Ubuntu, preferably 14.04, 15.04, or 16.04
 
 To set up the server, first run the `preactivate.sh` script
 
-sudo sh preactivate.sh
+`sudo sh preactivate.sh`
 
 This will install all necessary python dependencies so you can host the web server.
 
