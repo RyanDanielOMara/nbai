@@ -95,7 +95,7 @@ function newFilterFunction(name_index, team_index, position_index, value_index )
   		var cur_row_team = rows[i].getElementsByTagName("td")[team_index];
   		var cur_row_pos  = rows[i].getElementsByTagName("td")[position_index];
   		var cur_row_val  = rows[i].getElementsByTagName("td")[value_index];
-
+  		
   		//name filter
   		if (cur_row_name){
   			var name_bool = (cur_row_name.innerHTML.toUpperCase().indexOf(search_filter) > -1);
@@ -111,6 +111,12 @@ function newFilterFunction(name_index, team_index, position_index, value_index )
   		//position filter
   		if (cur_row_pos){
   			var pos_bool = (cur_row_pos.innerHTML.toUpperCase().indexOf(position_filter) > -1);
+  			if ((cur_row_pos.innerHTML.toUpperCase() == "F-G") && (position_filter == "G-F")){
+  				var pos_bool = true;
+  			}
+  			else if ((cur_row_pos.innerHTML.toUpperCase() == "C-F") && (position_filter == "F-C")){
+  				var pos_bool = true;
+  			} 
   		}
   		var pos_all = (position_filter == "ALL");
 
