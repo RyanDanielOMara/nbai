@@ -28,7 +28,7 @@
 
   // Collapse the navbar when page is scrolled
   $(window).scroll(function() {
-    if ($("#mainNav").offset().top > 100) {
+    if ($("#mainNav").offset().top > 25) {
       $("#mainNav").addClass("navbar-shrink");
     } else {
       $("#mainNav").removeClass("navbar-shrink");

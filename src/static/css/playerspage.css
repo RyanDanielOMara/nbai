@@ -1,0 +1,75 @@
+.header{
+  padding: 125px 0;
+}
+
+h1 {
+  font-family: 'Muli', Helvetica, Arial, sans-serif;
+  font-size: 28px;
+  text-transform: none !important;
+  font-weight: 600;
+  margin: 0;
+}
+
+h2 {
+  font-family: 'Muli', Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  text-transform: none !important;
+  font-weight: 300;
+  margin: 0;
+}
+
+h3 {
+  font-family: 'Muli', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  text-transform: none !important;
+  font-weight: 300;
+  margin: 5px 0;
+}
+
+table {
+  border-spacing: 5px 0px;
+  border-collapse: separate;
+  margin: 0px;
+  padding: 0px;
+}
+
+tbody {
+  padding: 0px;
+}
+
+td {
+  padding: 0px;
+  text-align: center;
+  width: 60px;
+  height: 15px;
+  font-family: 'Muli', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+
+.category{
+  background-color: #5bbfaa;
+}
+
+.stat{
+  background-color: #71848e;
+}
+
+tr {
+
+}
+
+.player-header {
+  height: 200px;
+  width: 100%;
+  color: red;
+}
+
+.image-container {
+  vertical-align: bottom;
+  display: table-cell;
+  height: 200px;
+}
+
+.player-info {
+  padding-top: 10px;
+}

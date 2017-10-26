@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>NBAI</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="{{url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Cabin:700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700,900" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+	  <link rel="stylesheet" href="{{url_for('static', filename='css/grayscale.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/playerspage.css')}}">
+
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color:black;">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="/index.html"">NBAI</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/index.html">Home</a>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="header" style="background-color: #ebeff2">
+      <div class="container">
+        <div class="row" style="background-color:#36404a;z-index:-1; margin: 0px;">
+            <div class="player-header col-lg-3" style="width:100%; height:100%; z-index: 1;">
+              <div class="image-container" style="height:200px; display: table-cell;vertical-align: bottom;">
+                <img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/{{player['player_id']}}.png"/>
+              </div>
+            </div>
+            <div class="col-lg-2" = style="position: absolute; z-index: 0;">
+              <img src="http://i.cdn.turner.com/nba/nba/assets/logos/teams/primary/web/{{player['team_abbr']}}.svg" style="margin: 25px 25px 0px 170px; max-width: 110px; opacity: 0.5;">
+            </div>
+            <div class="col-lg-4 player-info" style="width:100%; height:200px;;">
+              <h1 class="playername">{{player['player_name']}}</h1> <!-- name{{player_id}} -->
+              <h2 class="playerteam">{{player['team_name']}}</h2>
+              <hr style="background-color: #5bbfaa;  margin: 5px 0px;">
+              <h2 class="playerteam">#{{player['jersey']}} &nbsp;|&nbsp;  {{player['position']}}  &nbsp;|&nbsp;  {{player['height']}}  &nbsp;|&nbsp;  {{player['weight']}} lbs</h2>
+              <h3 class="playerdata" style="margin-top:20px;">Age: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{player['age']}}</h3>
+              <h3 class="playerdata">Drafted: &nbsp;&nbsp;&nbsp;&nbsp;2008: 1st Rnd, 5th by MEM</h3>
+              <h3 class="playerdata">College: &nbsp;&nbsp;&nbsp;&nbsp;UCLA</h3>
+            </div>
+            <div class="col-lg-4 player-stats">
+              <h3 style="margin-left: 5px; margin-top: 15px;">2017-2018 Season</h3>
+              <table>
+                <tr>
+                  <td class="category">PPG</td>
+                  <td class="category">RPG</td>
+                  <td class="category">BLKPG</td>
+                  <td class="category">PER</td>
+                </tr>
+                <tr>
+                  <td class="stat">15.0</td>
+                  <td class="stat">11.0</td>
+                  <td class="stat">0.0</td>
+                  <td class="stat">17.63</td>
+                </tr>
+              </table>
+
+              <h3 style="margin-left: 5px; margin-top: 15px;">Career</h3>
+              <table style="margin-bottom: 20px;">
+                <tr>
+                  <td class="category" style="margin-left: -5px;">PPG</td>
+                  <td class="category">RPG</td>
+                  <td class="category">BLKPG</td>
+                  <td class="category">PER</td>
+                </tr>
+                <tr>
+                  <td class="stat">18.4</td>
+                  <td class="stat">11.5</td>
+                  <td class="stat">0.5</td>
+                  <td class="stat">21.9</td>
+                </tr>
+              </table>
+            </div>
+
+
+          </div>
+          <div style="height: 500px; background-color: #71848e; margin: 0; padding: 0;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container text-center">
+      <p>Copyright &copy; NBAI</p>
+    </div>
+  </footer>
+
+      <!-- Bootstrap core JavaScript -->
+  <script src="{{url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+  <script src="{{url_for('static', filename='vendor/popper/popper.min.js')}}"></script>
+  <script src="{{url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{{url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+
+  <!-- Custom scripts for this template -->
+<script src="{{url_for('static', filename='js/grayscale.js')}}"></script>
+
+</html>

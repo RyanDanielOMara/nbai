@@ -5,7 +5,7 @@ from database.tables.fields import Structure as s
 
 
 
-TABLE_NAME = 'team_game_log'
+TABLE_NAME = 'team_game_logs'
 
 @connection.register
 class TeamGameLogRecord(GameLogRecord):

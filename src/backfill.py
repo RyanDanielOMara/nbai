@@ -66,8 +66,8 @@ def backfill_server(start_year, end_year, add_missing_player_bios, update_all_pl
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--start_year', type=int, default=2007, required=True)
-    parser.add_argument('--end_year',   type=int, default=CURRENT_SEASON_YEAR, required=True)
+    parser.add_argument('--start_year', type=int, default=CURRENT_SEASON_YEAR)
+    parser.add_argument('--end_year',   type=int, default=CURRENT_SEASON_YEAR)
     parser.add_argument('-a', '--add_missing_player_bios', action='store_true')
     parser.add_argument('-u', '--update_all_player_bios',  action='store_true')
     return parser.parse_args()

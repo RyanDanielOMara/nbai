@@ -37,10 +37,14 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#top-players-section">Top Players</a>
+            </li>
+            <li>
               <a class="nav-link js-scroll-trigger" href="#predictions-section">Predictions</a>
+            </li>
+            <li>
               <a class="nav-link js-scroll-trigger" href="#links-section">Links</a>
             </li>
-
           </ul>
         </div>
       </div>
@@ -59,7 +63,7 @@
               <p class="text-center">Predictions based on the information from
               <a href="http://stats.nba.com/">Stats.NBA.com</a>
               </p>
-              <a href="#predictions-section" class="btn btn-circle js-scroll-trigger">
+              <a href="#top-players-section" class="btn btn-circle js-scroll-trigger">
                 <i class="fa fa-angle-double-down animated"></i>
               </a>
             </div>
@@ -69,7 +73,7 @@
     </header>
 
     <!-- About Section -->
-    <section id="predictions-section" class="content-section text-center">
+    <section id="top-players-section" class="content-section text-center">
       <div class="container">
         <div class="row potw">
           <div class="col-lg-10 mx-auto">
@@ -79,34 +83,34 @@
 
         <div class="row players-of-the-week">
           <div class="col-lg-4 mx-auto">
-            <img src="../static/img/derrickrose.png" alt="potw1">
+            <img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203507.png" alt="potw1">
             <div style="background-color: #5bbfaa; width: 90%; text-align:center; margin: 10px  auto; ">
-              <h4 style="color:white; padding: 5px; margin-bottom:0px;">Derrick Rose</h4>
-              <p style="line-height: 18px; padding: 15px; font-size: 16px; margin-bottom: 10px;">Rose accumulated seven points (2-3 FG, 3-4 FT) and three assists across 15 minutes during Wednesday's 109-93 loss to the Hawks.</p>
+              <h4 style="color:white; padding: 5px; margin-bottom:0px;">Giannis Antetokounmpo</h4>
+              <p style="line-height: 18px; padding: 15px; font-size: 16px; margin-bottom: 10px;">Antetokounmpo exploded for 44 points (17-23 FG, 1-4 3Pt, 9-13 FT), eight rebounds, four assists, two steals, and one block in 39 minutes during Saturday's 113-110 win over the Trail Blazers.</p>
               <!-- <p style="color:white; padding-bottom:10px">Undervalued by X</p> -->
             </div>
           </div>
           <div class="col-lg-4 mx-auto">
-            <img src="../static/img/kyrieirving.png" alt="potw2">
+            <img src="http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/202326.png" alt="potw2">
             <div style="background-color: #5bbfaa; width: 90%; text-align:center; margin: 10px  auto; ">
-              <h4 style="color:white; padding: 5px; margin-bottom:0px;">Kyrie Irving</h4>
-              <p style="line-height: 18px; padding: 15px; font-size: 16px; margin-bottom: 10px;">Irving notched nine points (4-11 FG, 1-3 3Pt), four rebounds, three assists, two steals and one turnover across 19 minutes during Monday's preseason opener against the Hornets.</p>
+              <h4 style="color:white; padding: 5px; margin-bottom:0px;">DeMarcus Cousins</h4>
+              <p style="line-height: 18px; padding: 15px; font-size: 16px; margin-bottom: 10px;">Cousins tallied 22 points (8-17 FG, 1-6 3Pt, 5-8 FT), 11 rebounds, eight assists and two blocks in Sunday's 119-112 win over the Lakers.</p>
               <!-- <p style="color:white; padding-bottom:10px;">Undervalued by Y</p> -->
             </div>
           </div>
           <div class="col-lg-4 mx-auto">
-            <img src="../static/img/gordonhayward.png" alt="potw3">
+            <img src="http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2544.png" alt="potw3">
             <div style="background-color: #5bbfaa; width: 90%; text-align:center; margin: 10px auto; ">
-              <h4 style="color:white; padding: 5px; margin-bottom:0px;">Gordon Hayward</h4>
-              <p style="line-height: 18px; padding: 15px; font-size: 16px; margin-bottom: 10px;">Hayward finished Monday's preseason opener against the Hornets with five points (2-6 FG, 0-2 3Pt, 1-2 FT), five rebounds, one assist and one turnover across 17 minutes.</p>
+              <h4 style="color:white; padding: 5px; margin-bottom:0px;">LeBron James</h4>
+              <p style="line-height: 18px; padding: 15px; font-size: 16px; margin-bottom: 10px;">James tallied 24 points (10-16 FG, 2-4 3Pt, 2-2 FT), eight assists, five rebounds, one steal and one block across 37 minutes during Friday's 116-97 win over the Bucks.</p>
               <!-- <p style="color:white; padding-bottom:10px">Undervalued by Z</p> -->
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" id="predictions-section" style="padding-top: 50px;">
           <div class="col-lg-10 mx-auto">
             <h1 style ="margin-bottom: 5px;">Daily Player Fantasy Score Predictions</h1>
-            <h4 style="color: #5bbfaa;">First Games: Tuesday, October 17, 2017</h3>
+            <h4 style="color: #5bbfaa;">Players in games today:</h3>
             <div class="prediction-table-outer-container">
               <div id="prediction-table-inner-container">
                 <div class="row">
@@ -184,7 +188,7 @@
           <a href="https://github.com/RyanDanielOMara/nbai/issues">Post an Issue</a>
           <br>
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSc9EoEwwwSqtxHE_BA_h8LSxY246kwrJr8YCwzWKMHj3CZ0iQ/viewform?usp=sf_link">Give Feedback</a>
-        </div> 
+        </div>
       </div>
     </section>
 

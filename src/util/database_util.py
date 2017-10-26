@@ -92,17 +92,17 @@ def create_and_save_all_player_records(player_game_logs, year, player_dict=None)
         player_name = pg.player_name
         player_id = pg.player_id
         game_id = pg.game_id
-        
+
         ## Grab this player from the dictionary
         player_rec = player_dict.get(player_id)
-        
+
         ## If this player is not in the dictionary:
         if player_rec is None:
-        
+
             ## Try to retrieve them from the database
             query = { f.player_id : player_id }
             player_rec = connection.PlayerRecord.one(query)
-        
+
             ## If they are not in the database, create a record
             if player_rec is None:
                 player_rec = connection.PlayerRecord()
@@ -110,10 +110,10 @@ def create_and_save_all_player_records(player_game_logs, year, player_dict=None)
                 logging.info("PLAYER didn't exist.  CREATED: {}".format(player_name))
             else:
                 logging.info("PLAYER exists in database: {}".format(player_name))
-            
+
             ## Put them in the dictionary
             player_dict[player_id] = player_rec
-        
+
         ## Update this player's list of games
         player_rec.games_dict.setdefault(year_str, []).append(game_id)
 
@@ -229,7 +229,7 @@ def update_rosters():
 
     ## Get all rosters
     rosters = get_all_current_rosters()
-    
+
 
     ## For each team in the league
     for team_rec in connection.TeamRecord.find():
@@ -264,7 +264,7 @@ def update_rosters():
                 player_rec.player_id = player_id
             player_rec.team_id = team_id
             player_rec.save()
-            
+
         ## Save the team
         team_rec.save()
     return
@@ -398,4 +398,3 @@ def create_and_save_2017_schedule_records(skip_preseason=True,
     if len(batch) > 0:
         num_saved_records = len(sched_table.insert(batch))
     logging.info('Updated {} ScheduleRecords.'.format(num_saved_records))
-

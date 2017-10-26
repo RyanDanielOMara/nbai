@@ -20,12 +20,12 @@ tr {
 }
 
 /* Predictions Section*/
-#predictions-section {
+#top-players-section {
 	background-color: #ebeff2;
 	padding: 50px 100px 100px 100px;
 }
 
-#predictions-section h1, h2, h3{
+#top-players-section h1, h2, h3{
 	color: #36404a;
 }
 
@@ -40,7 +40,7 @@ tr {
 
 
 .players-of-the-week {
-	margin-bottom: 75px;
+	margin-bottom: 25px;
 }
 
 #potw img {
