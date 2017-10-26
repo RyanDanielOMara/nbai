@@ -111,8 +111,14 @@ function newFilterFunction(name_index, team_index, position_index, value_index )
   		//position filter
   		if (cur_row_pos){
   			var pos_bool = (cur_row_pos.innerHTML.toUpperCase().indexOf(position_filter) > -1);
+  			if ((cur_row_pos.innerHTML.toUpperCase() == "F-G") && (position_filter == "G-F")){
+  				var pos_bool = true;
+  			}
+  			else if ((cur_row_pos.innerHTML.toUpperCase() == "C-F") && (position_filter == "F-C")){
+  				var pos_bool = true;
+  			} 
   		}
-  		var pos_all = (position_filter == "ALL");
+		var pos_all = (position_filter == "ALL");
 
   		//value filter
   		if (cur_row_val){
