@@ -11,7 +11,9 @@ def identity(nba_data, nba_key):
     return nba_data.get(nba_key, None)
 
 
-
+"""
+Sort issue was sorting ints as strings.
+"""
 def cast_int(nba_data, nba_key):
     try:
         return int(nba_data[nba_key])
