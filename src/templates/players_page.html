@@ -97,6 +97,93 @@
                   <td class="stat">21.9</td>
                 </tr>
               </table>
+
+              <script>
+
+                  // the "schema" to which the dummy data conforms (this must correspond with the order of the actual columns)
+                  var columns = ['opponentTeam', 'fantasyScore', 'value']
+
+                  // dummy data for the table contents
+                  var tableContents = [
+                  {
+                    opponentTeam: "Lakers",
+                    fantasyScore: "36",
+                    value: "undervalued"
+                  },
+
+                  {
+                    opponentTeam: "Knicks",
+                    fantasyScore: "72",
+                    value: "overvalued"
+                  },
+
+                  {
+                    opponentTeam: "Spurs",
+                    fantasyScore: "99",
+                    value: "undervalued"
+                  }
+                ]
+              </script>
+
+              <table id="player-page-table">
+                <tr>
+                  <th onClick="sortBy(0)">Opponent Team</th>
+                  <th onClick="sortBy(1)">Fantasy Score</th>
+                  <th onClick="sortBy(2)">Value</th>
+                </tr>
+              </table>
+
+              <script>
+
+                function sortBy(index) {
+
+                  var column = columns[index]
+                  
+                  // if check to see if the column is already sorted in ascending order, so that it can be reversed
+                  var isAscending = true;
+                  for (var i = 1; i < tableContents.length; i++) {
+                    if (tableContents[i][column].localeCompare(tableContents[i - 1][column]) < 0) {
+                      isAscending = false
+
+                    }
+                  }
+
+                  tableContents.sort(function(a, b) {
+                    if (isAscending) {
+                      return b[column].localeCompare(a[column])
+                    }
+                    return a[column].localeCompare(b[column])
+                  });
+
+                  clearTable();
+                  putContents();
+                }
+
+                function clearTable() {
+                  table = document.getElementById("player-page-table");
+                  var len = table.rows.length - 1;
+                  for (var i = 0; i < len; i++) {
+                    table.deleteRow(1);
+                  }
+                }
+
+                function putContents() {
+                  var table = document.getElementById("player-page-table")
+                  for (var i = 0; i < tableContents.length; i++) {
+                    var row = table.insertRow(i + 1);
+                    
+                    var j = 0
+                    Object.keys(tableContents[i]).forEach(function(item) {
+                      row.insertCell(j).innerHTML = tableContents[i][item]
+                      j++;
+                    });
+                  }
+                }
+
+                putContents();
+
+              </script>
+
             </div>
 
 
