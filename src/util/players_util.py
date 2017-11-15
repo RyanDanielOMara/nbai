@@ -9,6 +9,7 @@ from database.connection import DATABASE_NAME, connection
 from database.tables.fields import Fields as f
 from nba_py import team as nba_team
 from nba_py import player as nba_player
+from database.tables.league.players import PlayerRecord
 
 
 """
@@ -99,6 +100,17 @@ def get_player_team(teamid):
         return team_abbr
     except:
         return ''
+
+"""
+Given a year as an int
+
+Return a list of lists of players and their corresponding playerid.
+"""
+def load_all_players(year):
+    players = connection.PlayerRecord.find({f.last_year : year})
+    output = [(player_item.player_id, player_item.player_name) for player_item in players]
+    # print(output)
+    return output
 
 """
 Loads 3 players from teams playing on the current day.  The 3 players that are

@@ -21,6 +21,7 @@ team_column_index     = 1;
 todays_players = load_todays_players()
 todays_players, top_3_value = get_player_scores(todays_players)
 
+all_players = load_all_players(2017)
 # player page variables
 player_table_headers = ['Opponent Team', 'Fantasy Score', 'Value']
 player_table = [['Team1', 'FantasyScore1', 'Overvalued' ],
@@ -61,6 +62,12 @@ def player_page(playerid):
     else:
         return flask.abort(404)
 
+@app.route('/players')
+def players_list():
+    return flask.render_template(
+        'players_list.html',
+        all_players = all_players
+        )
 
 @app.errorhandler(404)
 def page_not_found(e):
