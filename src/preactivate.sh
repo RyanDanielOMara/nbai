@@ -1,5 +1,8 @@
-virtualenv env
-env/bin/pip install flask
-env/bin/pip install mongokit
-env/bin/pip install nba_py
-env/bin/pip install -I pymongo==2.8
+if [[ $UID != 0 ]]; then
+	echo "Please start the script as root or sudo!"
+	exit 1
+fi
+chmod +x src/mongoinstall.sh
+chmod +x src/virtualenv_setup.sh
+./src/mongoinstall.sh
+./src/virtualenv_setup.sh

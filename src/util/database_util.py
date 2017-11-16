@@ -462,26 +462,32 @@ def create_and_save_all_player_season_stats_records(player_game_nodes, season):
     previously_saved_records = { rec[f.player_id] : rec for rec in
                                  player_season_stats_table.find(query) }
 
-    ## Get a list of the records to save
-    insert_batch = [rec for rec in records_we_might_save
-             if rec.player_id not in previously_saved_records]
-    update_batch = [rec for rec in records_we_might_save
-             if rec.player_id in previously_saved_records
-             and rec.games_played > previously_saved_records[rec.player_id][f.games_played]]
-    for rec in update_batch:
-        rec._id = previously_saved_records['_id']
+    ## Get the records to save
+    insert_count = 0
+    update_count = 0
+    bulk_operation = player_season_stats_table.initialize_ordered_bulk_op()
+    for rec in records_we_might_save:
 
-    ## Save these records
-    count = 0
-    if insert_batch:
-        saved_records = player_season_stats_table.insert(insert_batch)
-        count = len(saved_records)
-    logging.info("INSERTED this many {} PlayerSeasonStatRecords: {}".format(season, count))
+        ## If this player is not in the database
+        if rec.player_id not in previously_saved_records:
+            bulk_operation.insert(rec)
+            insert_count += 1
 
-    count = 0
-    if update_batch:
-        saved_records = player_season_stats_table.update(update_batch)
-        count = len(saved_records)
-    logging.info("UPDATED  this many {} PlayerSeasonStatRecords: {}".format(season, count))
+        ## Otherwise, if this player already exists for this year,
+        ## but this record is newer, update it
+        elif rec.player_id in previously_saved_records \
+        and rec.games_played > previously_saved_records[rec.player_id][f.games_played]:
+            old_id = previously_saved_records[rec.player_id]['_id']
+            bulk_operation.find({'_id' : old_id}).update({'$set' : rec})
+            update_count += 1
 
+    ## Save all of these records
+    if insert_count > 0 or update_count > 0:
+        saved_records = bulk_operation.execute()
+        insert_count = saved_records['nInserted']
+        update_count = saved_records['nModified']
+
+    logging.info("INSERTED this many {} PlayerSeasonStatRecords: {}".format(season, insert_count))
+    logging.info("UPDATED  this many {} PlayerSeasonStatRecords: {}".format(season, update_count))
     return
+

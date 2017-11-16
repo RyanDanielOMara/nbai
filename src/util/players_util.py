@@ -10,6 +10,8 @@ from database.tables.fields import Fields as f
 from nba_py import team as nba_team
 from nba_py import player as nba_player
 from database.tables.league.players import PlayerRecord
+from database.tables.league.player_prediction import PlayerPredictionRecord
+
 
 
 """
@@ -157,13 +159,13 @@ def load_todays_players():
                 reverse=True
             )
 
-            roster_ids = [x[0] for x in sorted_players_by_minutes_played[:3]]
+            roster_ids = [x[0] for x in sorted_players_by_minutes_played[:6]]
 
             for player in roster_ids:
                 player_item = extract_player_info(int(player))
                 if(player_item):
                     value = ['Overvalued', 'Undervalued']
-                    output.append([[player_item[f.player_name], player_item[f.player_id]], team_abbr, player_item[f.position], opp])
+                    output.append([[player_item[f.player_name], player_item[f.player_id]], team_abbr, player_item[f.position], opp, game_id])
                 else:
                     continue
     return output
@@ -191,13 +193,23 @@ Returns an updated list of players, position, score, opponent.
 def get_player_scores(players):
     player_values = {}
     for player in players:
-        player_name, player_id, team_abbr, opp = player[0][0], player[0][1], player[1], player[3]
-
+        player_name, player_id, team_abbr, opp, game_id = player[0][0], player[0][1], player[1], player[3], player[4]
         opp_id   = connection.NBAI.teams.find_one({f.team_abbr : team_abbr}, {f.team_id : 1, '_id' : 0})['team_id']
         print('Getting opponent team ID...')
 
         ftsy_prj, value = calculate_fantasy_points(player_id, opp_id)
         value = min(value, 1.5)
+
+"""
+Save player predictions into database NBAI
+"""
+		
+        rec = connection.PlayerPredictionRecord()
+        rec.player_id = player_id
+        rec.game_id = game_id
+        rec.team_abbr = team_abbr
+        rec.prediction = ftsy_prj
+        rec.save()
 
         print('Player: {}'.format(player_name))
         print('    Playing against: {}'.format(team_abbr))
@@ -209,7 +221,8 @@ def get_player_scores(players):
             player_values[value] = [int(ftsy_prj), int(ten_game_avg), int(ftsy_prj)-int(ten_game_avg), player_id, player_name]
 
     sorted_player_values = sorted(player_values.items(), key=operator.itemgetter(0), reverse=True)
-    player_values = [x[1] for x in sorted_player_values[:3]]
+    player_values = [x[1] for x in sorted_player_values[:6]]
+
 
     return (players, player_values)
 
