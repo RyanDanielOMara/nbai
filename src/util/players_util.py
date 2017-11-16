@@ -200,9 +200,9 @@ def get_player_scores(players):
         ftsy_prj, value = calculate_fantasy_points(player_id, opp_id)
         value = min(value, 1.5)
 
-"""
-Save player predictions into database NBAI
-"""
+        """
+        Save player predictions into database NBAI
+        """
 		
         rec = connection.PlayerPredictionRecord()
         rec.player_id = player_id
