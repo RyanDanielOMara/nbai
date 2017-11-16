@@ -47,6 +47,7 @@ class Fields:
     plus_minus     = 'plus_minus'
     position       = 'position'
     pre_nba        = 'pre_nba'
+    prediction     = 'prediction'
     pts            = 'pts'
     reb            = 'reb'
     roster         = 'roster'
@@ -114,6 +115,7 @@ class Structure:
     plus_minus     = int
     position       = basestring
     pre_nba        = basestring
+    prediction     = float
     pts            = int
     reb            = int
     roster         = [int]
@@ -128,4 +130,3 @@ class Structure:
     won            = bool
     def __init__(self):
         raise NotImplementedError("Don't instantiate me!")
-
