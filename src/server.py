@@ -21,7 +21,7 @@ team_column_index     = 1;
 todays_players = load_todays_players()
 todays_players, top_3_value = get_player_scores(todays_players)
 
-all_players = load_all_players(2017)
+all_players = get_list_of_all_players(2017)
 # player page variables
 player_table_headers = ['Opponent Team', 'Fantasy Score', 'Value']
 player_table = [['Team1', 'FantasyScore1', 'Overvalued' ],
