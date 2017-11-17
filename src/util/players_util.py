@@ -108,11 +108,10 @@ Given a year as an int
 
 Return a list of lists of players and their corresponding playerid.
 """
-def load_all_players(year):
+def get_list_of_all_players(year):
     players = connection.PlayerRecord.find({f.last_year : year})
-    output = [(player_item.player_id, player_item.player_name) for player_item in players]
-    # print(output)
-    return output
+    return [(player_item.player_id, player_item.player_name) for player_item in players]
+    
 
 """
 Loads 3 players from teams playing on the current day.  The 3 players that are
@@ -200,10 +199,6 @@ def get_player_scores(players):
         ftsy_prj, value = calculate_fantasy_points(player_id, opp_id)
         value = min(value, 1.5)
 
-
-        """
-        Save player predictions into database NBAI
-        """
 		
         rec = connection.PlayerPredictionRecord()
         rec.player_id = player_id
