@@ -9,7 +9,6 @@ function SearchFunction(){
 
   	for (var i = 0; i < (rows.length); i++){
   		var cur_row_name = rows[i].getElementsByTagName("a")[0];
-  		// alert(cur_row_name.innerHTML);
 
   		if (cur_row_name){
   			if(cur_row_name.innerHTML.toUpperCase().indexOf(input) > -1){
