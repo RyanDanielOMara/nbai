@@ -52,7 +52,7 @@ def extract_player_info(playerid):
     player[f.position]      = get_player_position(player[f.position])
     player[f.height]        = get_player_height(player[f.height])
     player['age']           = get_player_age(player[f.dob])
-    player['draft'] = get_draft_pick(player[f.draft_year], player[f.draft_overall])
+    player['draft']         = get_draft_pick(player[f.draft_year], player[f.draft_overall])
 
     return player
 
@@ -178,7 +178,7 @@ def load_todays_players():
                 reverse=True
             )
 
-            roster_ids = [x[0] for x in sorted_players_by_minutes_played[:1]]
+            roster_ids = [x[0] for x in sorted_players_by_minutes_played[:6]]
 
             value = ['Overvalued', 'Undervalued']
             for player in roster_ids:
