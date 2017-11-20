@@ -153,7 +153,6 @@ def load_todays_players():
             games[game_id]['teams'] = []
         games[game_id]['teams'].append({team_abbr : None})
 
-    count = 0
     for game_id, game in games.items():
         for team in game['teams']:
             team1 = game['teams'][0].keys()[0]
@@ -183,10 +182,8 @@ def load_todays_players():
             value = ['Overvalued', 'Undervalued']
             for player in roster_ids:
                 player_item = extract_player_info(int(player))
-                if(player_item) and count < 3:
-
+                if(player_item):
                     output.append([[player_item[f.player_name], player_item[f.player_id]], team_abbr, player_item[f.position], opp, game_id])
-                    count += 1
                 else:
                     continue
     return output
