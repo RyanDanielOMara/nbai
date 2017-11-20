@@ -179,7 +179,6 @@ def load_todays_players():
 
             roster_ids = [x[0] for x in sorted_players_by_minutes_played[:6]]
 
-            value = ['Overvalued', 'Undervalued']
             for player in roster_ids:
                 player_item = extract_player_info(int(player))
                 if(player_item):
