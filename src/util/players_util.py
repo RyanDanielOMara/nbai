@@ -11,6 +11,7 @@ from nba_py import team as nba_team
 from nba_py import player as nba_player
 from database.tables.league.players import PlayerRecord
 from database.tables.league.player_prediction import PlayerPredictionRecord
+from database.tables.league.player_season_stats import PlayerSeasonStatsRecord
 
 
 """
@@ -251,3 +252,94 @@ def calculate_fantasy_points(player_id, opp_team_id):
     ftsy_prj = round(ftsy_prj * recent_form, 1)
     value = ftsy_prj/ftsy_pts_last_10 if ftsy_pts_last_10 > 0 else 1
     return (ftsy_prj, value)
+
+"""
+Given a player_id this will return a list containig player stats.
+Returns [header, career, list_of_season_lists]
+'header' is a list of the stat names in the order they appear in the career and season lists
+'career' is a list of stats for the players complete career 
+'list_of_season_lists' is a list of season lists. The season list contains [2017, pts, fga,...]
+The 'list_of_season_lists' contains contains [[2017, pts, fgm, ...], [2016, pts, fgm, ...], [2015, pts, fgm, ...], ... ]
+
+"""
+def get_player_season_stats(player_id):
+    query = {f.player_id : player_id}
+    player_record_cursor = connection.PlayerSeasonStatsRecord.find(query)
+   
+    header = [ f.season,
+               f.games_played,
+               f.minutes,
+               f.pts,
+               f.fgm,
+               f.fga,
+               "fg%",
+               f.fg3m,
+               f.fg3a,
+               "3p%",
+               f.ftm, 
+               f.fta,
+               "ft%",
+               f.oreb,
+               f.dreb,
+               f.reb,
+               f.ast,
+               f.tov,
+               f.stl,
+               f.blk,
+               f.fouls, 
+               f.plus_minus,
+          ]
+    career_stats = [0]*len(header)
+    career_stats[0] = None
+    list_of_season_lists = []  #contains [[2017, pts, fgm, ...], [2016, pts, fgm, ...], [2015, pts, fgm, ...], ... ]
+
+    player_record_cursor = sorted(player_record_cursor, key=lambda rec : rec.season, reverse=True)
+    for rec in player_record_cursor:
+        ## we need a new list for each player season
+        season_list = []
+        for stat in header:
+
+            ## get games_played so we only have to retrieve it once for normalization
+            games_played = rec.games_played
+
+            ## If this header is one we need to compute, compute it
+            if stat == 'fg%': 
+                value = round(100.0 * rec.fgm / rec.fga , 1) if rec.fga else '-'
+
+            elif stat == '3p%':
+                value = round(100.0 * rec.fg3m / rec.fg3a, 1) if rec.fga else '-'
+
+            elif stat == 'ft%':
+                value = round(100.0 * rec.ftm / rec.fta, 1) if rec.fga else '-'
+
+            elif stat == f.games_played:
+                value = rec.games_played
+                career_stats[1] += value
+
+            elif stat == f.season: 
+                value = rec.season
+
+            else: 
+                value = round(1.0 * getattr(rec, stat) / games_played, 1)
+                career_stats[len(season_list)] += getattr(rec, stat)
+            season_list.append(value)
+
+        list_of_season_lists.append(season_list)
+
+
+    # average out these percentage stats for the career stats
+    for percent_stat in [6,9,12]:
+        average_percent = 0
+        count = 0
+        skip = False
+        for season in list_of_season_lists:
+            # if they dont have a stat we cant compute the average of it
+            if season[percent_stat] == '-':
+                average_percent = 0
+            else:
+                average_percent += season[percent_stat]
+            count += 1
+
+        career_stats[percent_stat] = round(average_percent / count, 1) if average_percent != 0 else '-'
+
+    return [header, career_stats, list_of_season_lists]
