@@ -20,7 +20,7 @@
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700,900" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-	  <link rel="stylesheet" href="{{url_for('static', filename='css/grayscale.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/grayscale.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/playerspage.css')}}">
     <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/table.css')}}"> -->
 
@@ -51,7 +51,7 @@
     <div class="header" style="background-color: #ebeff2">
       <div class="container">
         <div class="row" style="background-color:#36404a;z-index:-1; margin: 0px;">
-            
+
             <div class="player-header col-lg-3" style="width:100%; height:100%; z-index: 1;">
               <div class="image-container" style="height:200px; display: table-cell;vertical-align: bottom;">
                 <img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/{{player['player_id']}}.png"/>
@@ -61,66 +61,79 @@
               <img src="http://i.cdn.turner.com/nba/nba/assets/logos/teams/primary/web/{{player['team_abbr']}}.svg" style="margin: 25px 25px 0px 170px; max-width: 110px; opacity: 0.5;">
             </div>
 
-            <div class="col-lg-4 player-info" style="width:100%; height:200px;;">
+            <div class="col-lg-4 player-info" style="width:100%; height:200px;">
               <h1 class="playername">{{player['player_name']}}</h1> <!-- name{{player_id}} -->
               <h2 class="playerteam">{{player['team_name']}}</h2>
               <hr style="background-color: #5bbfaa;  margin: 5px 0px;">
               <h2 class="playerteam">#{{player['jersey']}} &nbsp;|&nbsp;  {{player['position']}}  &nbsp;|&nbsp;  {{player['height']}}  &nbsp;|&nbsp;  {{player['weight']}} lbs</h2>
               <h3 class="playerdata" style="margin-top:20px;">Age: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{player['age']}}</h3>
-              <h3 class="playerdata">Drafted: &nbsp;&nbsp;&nbsp;&nbsp;2008: 1st Rnd, 5th by MEM</h3>
-              <h3 class="playerdata">College: &nbsp;&nbsp;&nbsp;&nbsp;UCLA</h3>
+              <h3 class="playerdata">Drafted: &nbsp;&nbsp;&nbsp;&nbsp;{{player['draft']}}</h3>
+              <h3 class="playerdata">Pre-NBA: &nbsp;&nbsp;{{player['pre_nba']}}</h3>
             </div>
+            <div class="col-lg-5 player-stats">
 
-            <div class="col-lg-4 player-stats">
-              <h3 style="margin-left: 5px; margin-top: 15px;">2017-2018 Season</h3>
-              <table>
-                <tr>
-                  <td class="category">PPG</td>
-                  <td class="category">RPG</td>
-                  <td class="category">BLKPG</td>
-                  <td class="category">PER</td>
-                </tr>
-                <tr>
-                  <td class="stat">15.0</td>
-                  <td class="stat">11.0</td>
-                  <td class="stat">0.0</td>
-                  <td class="stat">17.63</td>
-                </tr>
-              </table>
 
-              <h3 style="margin-left: 5px; margin-top: 15px;">Career</h3>
+              <h2 style="text-align: center; margin-top: 15px; margin-bottom: 10px">Career Overview</h3>
               <table style="margin-bottom: 20px;">
                 <tr>
-                  <td class="category" style="margin-left: -5px;">PPG</td>
-                  <td class="category">RPG</td>
-                  <td class="category">BLKPG</td>
-                  <td class="category">PER</td>
+                  <td class="overview-category" style="margin-left: -5px;">PPG</td>
+                  <td class="overview-category">FG%</td>
+                  <td class="overview-category">3P%</td>
+                  <td class="overview-category">RPG</td>
+                  <td class="overview-category">APG</td>
+                  <td class="overview-category">SPG</td>
+                  <td class="overview-category">BPK</td>
                 </tr>
                 <tr>
-                  <td class="stat">18.4</td>
-                  <td class="stat">11.5</td>
-                  <td class="stat">0.5</td>
-                  <td class="stat">21.9</td>
+                  <td class="overview-stat">{{player_career_stats[2]}}</td>
+                  <td class="overview-stat">{{player_career_stats[6]}}</td>
+                  <td class="overview-stat">{{player_career_stats[9]}}</td>
+                  <td class="overview-stat">{{player_career_stats[14]}}</td>
+                  <td class="overview-stat">{{player_career_stats[15]}}</td>
+                  <td class="overview-stat">{{player_career_stats[18]}}</td>
+                  <td class="overview-stat">{{player_career_stats[19]}}</td>
                 </tr>
               </table>
 
-             
+
             </div>
         </div>
+        <div style="height: 500px; background-color: #4c5966; margin: 0; padding: 10px;">
+            <h2 style="text-align: center">Career Stats</h2>
+            <table style ="padding: 5px 0;">
 
-          
-          <div style="height: 500px; background-color: #71848e; margin: 0; padding: 0;"></div>
+              <tr>
+                {% for header in player_stats_headers[1:] %}
+                  <th class="category">{{header}}</td>
+                {% endfor %}
+              </tr>
+              <tr>
+                {% for datum in player_career_stats[1:] %}
+                  <td class="stat">{{datum}}</td>
+                {% endfor %}
+              </tr>
+            </table>
+            <h2 style="margin-top: 15px; text-align: center">Season-by-Season Stats</h2>
+
+            <table id="season-stats" style ="padding: 5px 0;">
+                <tr>
+                  {% for header in player_stats_headers %}
+                    <th class="category">{{header}}</td>
+                  {% endfor %}
+                </tr>
+                {% for season in player_season_stats %}
+                    <tr>
+                    {% for datum in season %}
+                        <td class="stat">{{datum}}</td>
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+
+        </div>
       </div>
     </div>
   </body>
-          
-        <!-- </div>
-          <div style="height: 500px; background-color: #71848e; margin: 0; padding: 0;"></div>
-        </div> -->
-
-        
-
-
 
   <!-- Footer -->
   <footer>
@@ -129,7 +142,7 @@
     </div>
   </footer>
 
-      <!-- Bootstrap core JavaScript -->
+  <!-- Bootstrap core JavaScript -->
   <script src="{{url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
   <script src="{{url_for('static', filename='vendor/popper/popper.min.js')}}"></script>
   <script src="{{url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -138,7 +151,7 @@
   <script src="{{url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
   <!-- Custom scripts for this template -->
-<script src="{{url_for('static', filename='js/grayscale.js')}}"></script>
-<script src="{{url_for('static', filename='js/playerspage.js')}}"></script>
+  <script src="{{url_for('static', filename='js/grayscale.js')}}"></script>
+  <script src="{{url_for('static', filename='js/playerspage.js')}}"></script>
 
 </html>

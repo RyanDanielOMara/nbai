@@ -17,7 +17,6 @@ name_column_index     = 0;
 position_column_index = 2;
 team_column_index     = 1;
 
-
 todays_players = load_todays_players()
 todays_players, top_3_value = get_player_scores(todays_players)
 
@@ -49,6 +48,7 @@ def home_page(path):
 @app.route('/players/<playerid>')
 def player_page(playerid):
     player = extract_player_info(playerid)
+    player_season_stats = get_player_season_stats(playerid)
     if(player):
         return flask.render_template(
             'players_page.html',
@@ -57,7 +57,10 @@ def player_page(playerid):
             player_table_headers = player_table_headers,
             opp_team_list = opp_team_list,
             playerpage_team_index = 0,
-            playerpage_value_index = 2
+            playerpage_value_index = 2,
+            player_stats_headers = player_season_stats[0],
+            player_career_stats = player_season_stats[1],
+            player_season_stats = player_season_stats[2]
         )
     else:
         return flask.abort(404)

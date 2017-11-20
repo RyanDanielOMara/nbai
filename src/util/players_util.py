@@ -30,25 +30,29 @@ Returns the player dict.
 def extract_player_info(playerid):
     try:
         player = connection.NBAI.players.find_one({f.player_id : int(playerid)},
-         {f.player_id  : 1,
-         f.player_name : 1,
-         f.height      : 1,
-         f.weight      : 1,
-         f.dob         : 1,
-         f.position    : 1,
-         f.jersey      : 1,
-         f.last_year   : 1,
-         f.team_id     : 1,
-         '_id'         : 0})
+         {f.player_id    : 1,
+         f.player_name   : 1,
+         f.height        : 1,
+         f.weight        : 1,
+         f.dob           : 1,
+         f.position      : 1,
+         f.jersey        : 1,
+         f.last_year     : 1,
+         f.team_id       : 1,
+         f.pre_nba       : 1,
+         f.draft_overall : 1,
+         f.draft_year    : 1,
+         '_id'           : 0})
     except:
         return None
 
     if not player or player[f.last_year] != date.today().year :
         return None
-    player[f.team_abbr] = get_player_team(player[f.team_id])
-    player[f.position]  = get_player_position(player[f.position])
-    player[f.height]    = get_player_height(player[f.height])
-    player['age']       = get_player_age(player[f.dob])
+    player[f.team_abbr]     = get_player_team(player[f.team_id])
+    player[f.position]      = get_player_position(player[f.position])
+    player[f.height]        = get_player_height(player[f.height])
+    player['age']           = get_player_age(player[f.dob])
+    player['draft'] = get_draft_pick(player[f.draft_year], player[f.draft_overall])
 
     return player
 
@@ -107,6 +111,18 @@ def get_player_team(teamid):
 
 
 """
+Given a draft year and overall pick, format the pick string.
+
+Returns a string representing a player's draft position.
+"""
+def get_draft_pick(draft_year, draft_pick):
+    if draft_pick == 'Undrafted':
+        return draft_pick
+    draft_pick = draft_pick + 'st' if draft_pick == '1' else draft_pick + 'th'
+    return '{} : {} overall'.format(draft_year, draft_pick)
+
+
+"""
 Given a year as an int
 
 Return a list of lists of players and their corresponding playerid.
@@ -114,7 +130,7 @@ Return a list of lists of players and their corresponding playerid.
 def get_list_of_all_players(year):
     players = connection.PlayerRecord.find({f.last_year : year})
     return [(player_item.player_id, player_item.player_name) for player_item in players]
-    
+
 
 """
 Loads 3 players from teams playing on the current day.  The 3 players that are
@@ -137,6 +153,7 @@ def load_todays_players():
             games[game_id]['teams'] = []
         games[game_id]['teams'].append({team_abbr : None})
 
+    count = 0
     for game_id, game in games.items():
         for team in game['teams']:
             team1 = game['teams'][0].keys()[0]
@@ -161,13 +178,15 @@ def load_todays_players():
                 reverse=True
             )
 
-            roster_ids = [x[0] for x in sorted_players_by_minutes_played[:6]]
+            roster_ids = [x[0] for x in sorted_players_by_minutes_played[:1]]
 
+            value = ['Overvalued', 'Undervalued']
             for player in roster_ids:
                 player_item = extract_player_info(int(player))
-                if(player_item):
-                    value = ['Overvalued', 'Undervalued']
+                if(player_item) and count < 3:
+
                     output.append([[player_item[f.player_name], player_item[f.player_id]], team_abbr, player_item[f.position], opp, game_id])
+                    count += 1
                 else:
                     continue
     return output
@@ -203,7 +222,7 @@ def get_player_scores(players):
 
         ftsy_prj, value = calculate_fantasy_points(player_id, opp_id)
         value = min(value, 1.5)
-	
+
         rec = connection.PlayerPredictionRecord()
         rec.player_id = player_id
         rec.game_id    = game_id
@@ -260,18 +279,18 @@ Given a player_id, this will return a list containig career/seasonal stats.
 
 Returns [columns, career_stats, season_stats]
 'columns' is a list of the stat names in the order they appear in the career/season lists
-'career_stats' is a list of stats for the players complete career 
+'career_stats' is a list of stats for the players complete career
 'season_stats' is a list containing lists of season stats.
 
 Both career_stats and the lists inside season_stats are formatted like so:
 [year, games_played, minutes, points, fgm, fga, ... ]
 """
 def get_player_season_stats(player_id):
-    
+
     ## Get the player from the database
-    query = { f.player_id : player_id }
+    query = { f.player_id : int(player_id) }
     player_record_cursor = connection.PlayerSeasonStatsRecord.find(query)
-   
+
     columns = [
         f.season,
         f.games_played,
@@ -283,7 +302,7 @@ def get_player_season_stats(player_id):
         f.fg3m,
         f.fg3a,
         "3p%",
-        f.ftm, 
+        f.ftm,
         f.fta,
         "ft%",
         f.oreb,
@@ -303,17 +322,17 @@ def get_player_season_stats(player_id):
 
     ## Sort the PlayerSeasonStatRecords by year descending
     player_record_cursor = sorted(player_record_cursor, key=lambda rec : rec.season, reverse=True)
-    
+
     ## For each record
     for rec in player_record_cursor:
 
         this_season = []
-        
+
         ## Iterate through the stat columns
         for col in columns:
 
             ## If this column represents a percentage:
-            if col == 'fg%': 
+            if col == 'fg%':
                 value = round(100.0 * rec.fgm / rec.fga , 1) if rec.fga else '-'
             elif col == '3p%':
                 value = round(100.0 * rec.fg3m / rec.fg3a, 1) if rec.fg3a else '-'
@@ -338,8 +357,10 @@ def get_player_season_stats(player_id):
 
     ## Now, build the career stats
     csd = career_stats_dict
-    career_stats = [round(1.0 * csd[col] / csd[f.games_played], 1) for col in columns]
-
+    if csd[f.games_played]:
+        career_stats = [round(1.0 * csd[col] / csd[f.games_played], 1) for col in columns]
+    else:
+        career_stats = ['-' for col in columns]
     ## Fix the stats that shouldn't be normalized
     season_index = 0
     games_played_index = 1
@@ -352,5 +373,14 @@ def get_player_season_stats(player_id):
     career_stats[games_played_index] = csd[f.games_played]
     career_stats[season_index] = "Career"
 
-    return [columns, career_stats, season_stats]
+    for i in range(len(columns)):
+        if i == 1:
+            columns[i] = 'GP'
+        elif i == 2:
+            columns[i] = 'MIN'
+        elif i == 21:
+            columns[i] = '+/-'
+        else:
+            columns[i] = columns[i].replace('_', ' ').upper()
 
+    return [columns, career_stats, season_stats]

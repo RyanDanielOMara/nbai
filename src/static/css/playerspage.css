@@ -27,7 +27,7 @@ h3 {
 }
 
 table {
-  border-spacing: 5px 0px;
+  border-spacing: 0px 0px;
   border-collapse: separate;
   margin: 0px;
   padding: 0px;
@@ -35,6 +35,15 @@ table {
 
 tbody {
   padding: 0px;
+}
+
+th {
+  padding: 0px;
+  text-align: center;
+  width: 60px;
+  height: 15px;
+  font-family: 'Muli', Helvetica, Arial, sans-serif;
+  font-size: 16px;
 }
 
 td {
@@ -46,16 +55,33 @@ td {
   font-size: 16px;
 }
 
+tr {
+    background-color: #ebeff2;
+}
+
+#season-stats tr:nth-child(odd) {
+	background-color: #d7dde2;
+}
+
+.overview-category{
+  background-color: #5bbfaa;
+}
+
 .category{
   background-color: #5bbfaa;
 }
 
-.stat{
-  background-color: #71848e;
+.overview-stat{
+    background-color: #ebeff2;
+    color: black;
 }
 
-tr {
+.stat{
+    color: black;
+}
 
+.headers-row{
+    background-color: #5bbfaa;
 }
 
 .player-header {
