@@ -5,6 +5,7 @@ from database.tables.fields import Structure as s
 
 
 
+
 TABLE_NAME = 'player_predictions'
 
 @connection.register
@@ -23,7 +24,9 @@ class PlayerPredictionRecord(DatabaseRecord):
     indexes = [
         {
             'fields' : [f.player_id],
-            'unique' : True
+
+            'unique' : False
+
         }
     ]
 
@@ -31,9 +34,12 @@ class PlayerPredictionRecord(DatabaseRecord):
         f.player_id,
         f.game_id,
         f.team_abbr,
-        f.prediction
+        f.prediction  
     ]
+
+
 
     default_values = {
 
     }
+

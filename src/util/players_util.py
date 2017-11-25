@@ -9,9 +9,11 @@ from database.connection import DATABASE_NAME, connection
 from database.tables.fields import Fields as f
 from nba_py import team as nba_team
 from nba_py import player as nba_player
+
 from database.tables.league.players import PlayerRecord
 from database.tables.league.player_prediction import PlayerPredictionRecord
 from database.tables.league.player_season_stats import PlayerSeasonStatsRecord
+
 
 
 def extract_player_info(playerid):
@@ -189,6 +191,7 @@ def load_todays_players():
             for player in roster_ids:
                 player_item = extract_player_info(int(player))
                 if(player_item):
+
                     output.append([[player_item[f.player_name], player_item[f.player_id]], team_abbr, player_item[f.position], opp, game_id])
                 else:
                     continue
@@ -226,6 +229,11 @@ def get_player_scores(players):
         ftsy_prj, value = calculate_fantasy_points(player_id, opp_id)
         value = min(value, 1.5)
 
+"""
+Save player predictions into database NBAI
+"""
+		
+
         rec = connection.PlayerPredictionRecord()
         rec.player_id = player_id
         rec.game_id    = game_id
@@ -244,7 +252,9 @@ def get_player_scores(players):
         del player[4]
 
     sorted_player_values = sorted(player_values.items(), key=operator.itemgetter(0), reverse=True)
+
     player_values = [x[1] for x in sorted_player_values[:3]]
+
     return (players, player_values)
 
 
