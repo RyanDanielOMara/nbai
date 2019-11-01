@@ -17,9 +17,10 @@ def do_git_pull():
         do_server_update()
         
 while True:
-    if datetime.date.today() > date_updated and datetime.datetime.now().hour > 3:
+    if datetime.date.today() > date_updated and datetime.datetime.now().hour >= 3:
         do_server_update()
         date_updated = datetime.date.today()
 
     do_git_pull()
     time.sleep(20)
+
